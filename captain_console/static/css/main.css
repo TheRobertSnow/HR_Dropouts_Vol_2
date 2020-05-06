@@ -10,11 +10,25 @@ body {
     margin: auto;
     border: 2px solid #BFBFBF;
 }
-.products {
+a:link {
+    color: #222222;
+    text-decoration: none;
+}
+a:visited {
+    color: #222222;
+    text-decoration: none;
+}
+a:hover {
+    color: #222222;
+    text-decoration: none;
+}
+
+/* Home Page css */
+.homePage {
     padding: 10px;
     text-align: center;
 }
-.product-container {
+.homePage .product-container {
     box-sizing: border-box;
     width: 210px;
     height: 300px;
@@ -24,18 +38,48 @@ body {
     border-radius: 5px;
     padding: 5px;
 }
-.product-image {
+.homePage .product-image {
     margin: 0px;
     height: 70%;
     width: 100%;
 }
-.product-name {
+.homePage .product-name {
     margin: 0px;
     width: 100%;
     height: 15%;
 }
-.product-price {
+.homePage .product-price {
     margin: 0px;
     width: 100%;
     height: 15%;
+}
+
+/* Product Page css */
+.productPage {
+    background-color: white;
+    padding: 10px;
+}
+.productPage .product-image {
+    width: 100%;
+    border: 1px solid black;
+}
+.productPage .product-name {
+    width: 50%;
+    float: left;
+    height: 60px;
+    border: 1px solid black;
+}
+.productPage .product-price {
+    width: 50%;
+    float: left;
+    height: 60px;
+    border: 1px solid black;
+}
+.productPage .product-description {
+    width: 100%;
+    border: 1px solid black;
+}
+.productPage .product-reviews {
+    width: 100%;
+    border: 1px solid black;
 }

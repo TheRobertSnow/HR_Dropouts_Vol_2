@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="products">
+    <div class="homePage">
         <h2>Product Catalog</h2>
         {% for product in products %}
         <div class="product-container">
-            <img class="product-image" src="../../static/images/{{ product.image }}" alt="">
-            <h4 class="product-name">{{ product.name }}</h4>
-            <p class="product-price">{{ product.price }}</p>
+            <a href="/products/{{ product.id }}">
+                <img class="product-image" src="../../static/images/{{ product.image }}" alt="">
+                <h4 class="product-name">{{ product.name }}</h4>
+                <p class="product-price">{{ product.price }} kr.</p>
+            </a>
         </div>
         {% endfor %}
     </div>

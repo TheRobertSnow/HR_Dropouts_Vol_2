@@ -4,8 +4,7 @@
         <h2>Product Catalog</h2>
         {% for product in products %}
         <div class="product-container">
-            {% load static %}
-            <img class="product-image" src="{% static 'images/1.jpg' %}" alt="">
+            <img class="product-image" src="../../static/images/{{ product.image }}" alt="">
             <h4 class="product-name">{{ product.name }}</h4>
             <p class="product-price">{{ product.price }}</p>
         </div>

@@ -2,11 +2,13 @@
     border-bottom: solid 2px rgba(155, 155, 155, .5);
 }
 html {
-    background-color: #cccccc;
+    background-color: #EBEBEB;
 }
 body {
     width: 60%;
+    text-align: center;
     margin: auto;
+    border: 2px solid #BFBFBF;
 }
 .products {
     padding: 10px;

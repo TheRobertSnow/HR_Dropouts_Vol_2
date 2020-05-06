@@ -30,3 +30,9 @@ def home(request):
 
 def login(request):
     return render(request, 'CaptainConsole/login.html')
+
+def add_product(request):
+    return render(request, 'CaptainConsole/add_product.html')
+
+def sign_up(request):
+    return render(request, 'CaptainConsole/signup.html')

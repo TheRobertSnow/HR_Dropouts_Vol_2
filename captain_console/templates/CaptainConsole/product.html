@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="productPage">
-    <img class="product-image" src="../../static/images/{{ product.image }}" alt="">
-    <h4 class="product-name">{{ product.name}}</h4>
-    <p class="product-price">{{ product.price }} kr.</p>
-    <p class="product-description">{{ product.description }}</p>
-    <p class="product-reviews"></p>
-</div>
+    <div class="productPage">
+        <img class="product-image" src="../../static/images/{{ product.image }}" alt="">
+        <h4 class="product-name">{{ product.name}}</h4>
+        <p class="product-price">{{ product.price }} kr.</p>
+        <p class="product-description">{{ product.description }}</p>
+        <p class="product-reviews"></p>
+    </div>
 {% endblock %}

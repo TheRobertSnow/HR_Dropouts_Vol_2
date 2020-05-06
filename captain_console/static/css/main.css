@@ -20,6 +20,9 @@ body {
     height: 300px;
     display: inline-block;
     margin: 8px;
+    border: 1px solid #BFBFBF;
+    border-radius: 5px;
+    padding: 5px;
 }
 .product-image {
     margin: 0px;

@@ -23,3 +23,9 @@ def login(request):
 
 def get_product_by_id(request, id):
     return render(request, 'CaptainConsole/product.html', context={ 'product': products[id] })
+
+def add_product(request):
+    return render(request, 'CaptainConsole/add_product.html')
+
+def sign_up(request):
+    return render(request, 'CaptainConsole/signup.html')

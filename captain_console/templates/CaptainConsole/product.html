@@ -6,6 +6,8 @@
         <h4 class="product-price">{{ product.price }} kr.</h4>
         <p class="product-description">{{ product.description }}</p>
         <p class="product-reviews"></p>
-{#        {% for productimage in product. %}#}
+        {% for productimage in product.ProductImages %}
+            <img src="{{ productimage.imageFileName }}"/>
+        {% endfor %}
     </div>
 {% endblock %}

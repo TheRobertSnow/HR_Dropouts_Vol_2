@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="productPage">
-        <img class="product-image" src="../../static/images/{{ product.image }}" alt="">
+        {% for image in images %}
+            {% if product.id == image.product_id %}
+                <img class="product-image" src="../../static/images/{{ image.imageFileName }}" alt="">
+            {% endif %}
+        {% endfor %}
         <h4 class="product-name">{{ product.name}}</h4>
         <p class="product-price">{{ product.price }} kr.</p>
         <p class="product-description">{{ product.description }}</p>

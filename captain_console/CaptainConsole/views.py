@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import Http404
+from django.shortcuts import render
+from django.shortcuts import get_object_or_404
+from CaptainConsole.models import Products
 
 products = [
     {'id':'0','image':'1.jpg', 'name':'PlayStation1', 'price': 19.99, 'description':'This is some long as description of the item'},
@@ -16,13 +17,16 @@ products = [
 ]
 # Create your views here.
 def home(request):
-    return render(request, 'CaptainConsole/home.html', context={ 'products': products })
+    context = {'products': Products.objects.all().order_by('name')}
+    return render(request, 'CaptainConsole/home.html', context)
 
 def login(request):
     return render(request, 'CaptainConsole/login.html')
 
 def get_product_by_id(request, id):
-    return render(request, 'CaptainConsole/product.html', context={ 'product': products[id] })
+    return render(request, 'CaptainConsole/product.html', {
+        'product': get_object_or_404(Products, pk=id)
+    })
 
 def add_product(request):
     return render(request, 'CaptainConsole/add_product.html')

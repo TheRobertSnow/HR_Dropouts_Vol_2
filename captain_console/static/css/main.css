@@ -38,7 +38,7 @@ a:hover {
     border-radius: 5px;
     padding: 5px;
 }
-.homePage .product-image {
+.homePage .product-mainImage {
     margin: 0px;
     height: 70%;
     width: 100%;
@@ -59,30 +59,34 @@ a:hover {
     background-color: white;
     padding: 10px;
 }
-.productPage .product-image {
-    width: 25%;
-    height: 300px;
+.productPage .product-mainImage {
+    padding: 20px;
+    width: 70%;
+    height: 750px;
     float: left;
-    border: 1px solid black;
+    border: 2px solid #BFBFBF;
+}
+.productPage .product-images {
+    padding: 10px;
+    width: 30%;
+    height: 250px;
+    float: left;
+    border: 2px solid #BFBFBF;
 }
 .productPage .product-name {
     width: 50%;
     float: left;
     height: 60px;
-    border: 1px solid black;
 }
 .productPage .product-price {
     width: 50%;
     float: left;
     height: 60px;
-    border: 1px solid black;
 }
 .productPage .product-description {
     width: 100%;
-    border: 1px solid black;
 }
 .productPage .product-reviews {
     width: 100%;
-    border: 1px solid black;
 }
 

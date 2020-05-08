@@ -5,11 +5,7 @@
         {% for product in products %}
         <div class="product-container">
             <a href="/products/{{ product.id }}">
-                {% for image in images %}
-                    {% if product.id == image.product_id %}
-                        <img class="product-image" src="../../static/images/{{ image.imageFileName }}" alt="">
-                    {% endif %}
-                {% endfor %}
+                <img class="product-image" src="../../static/images/{{ product.mainImage }}" alt="">
                 <h4 class="product-name">{{ product.name }}</h4>
                 <p class="product-price">{{ product.price }} kr.</p>
             </a>

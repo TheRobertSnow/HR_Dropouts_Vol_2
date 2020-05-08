@@ -86,7 +86,21 @@ a:hover {
 .productPage .product-description {
     width: 100%;
 }
-.productPage .product-reviews {
+.productPage .product-review {
     width: 100%;
+    text-align: left;
+    border: 2px solid #BFBFBF;
+    border-radius: 5px;
+    background-color: #EBEBEB;
+    padding: 10px;
+}
+.productPage .product-review-user {
+
+}
+.productPage .product-review-rating {
+
+}
+.productPage .product-review-text {
+
 }
 

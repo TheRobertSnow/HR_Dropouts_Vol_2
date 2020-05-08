@@ -1,17 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="productPage">
+        <img class="product-mainImage" src="../../static/images/{{ product.mainImage }}" alt="">
         {% for image in images %}
             {% if product.id == image.product_id %}
-                <img class="product-image" src="../../static/images/{{ image.imageFileName }}" alt="">
+                <img class="product-images" src="../../static/images/{{ image.imageFileName }}" alt="">
             {% endif %}
         {% endfor %}
         <h4 class="product-name">{{ product.name}}</h4>
         <p class="product-price">{{ product.price }} kr.</p>
         <p class="product-description">{{ product.description }}</p>
-        <p class="product-reviews"></p>
-        {% for productimage in product.ProductImages %}
-            <img src="{{ productimage.imageFileName }}"/>
+        {% for review in reviews %}
+            {% if product.id == review.product_id %}
+                <p class="product-reviews">Review from: {{ review.user_id}}</p>
+                <p class="product-reviews">Rating: {{ review.rating}}/5 Stars</p>
+                <p class="product-reviews">Text: {{ review.reviewText}}</p>
+            {% endif %}
         {% endfor %}
         <a href="{% url 'delete_product' product.id %}" class="block btn btn-primary">Delete Product</a>
     </div>

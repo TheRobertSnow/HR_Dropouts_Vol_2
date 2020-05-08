@@ -5,7 +5,7 @@
         {% for product in products %}
         <div class="product-container">
             <a href="/products/{{ product.id }}">
-                <img class="product-image" src="../../static/images/{{ product.mainImage }}" alt="">
+                <img class="product-mainImage" src="../../static/images/{{ product.mainImage }}" alt="">
                 <h4 class="product-name">{{ product.name }}</h4>
                 <p class="product-price">{{ product.price }} kr.</p>
             </a>

@@ -3,6 +3,17 @@ from django.forms import widgets
 from django import forms
 from CaptainConsole.models import Products
 
+class ProductUpdateForm(ModelForm):
+
+    class Meta:
+        model = Products
+        exclude = ['id']
+        widgets = {
+            'name': widgets.TextInput(attrs={'class': 'form-control'}),
+            'price': widgets.NumberInput(attrs={'class': 'form-control'}),
+            'description': widgets.TextInput(attrs={'class': 'form-control'}),
+            'manufacturer': widgets.TextInput(attrs={'class': 'form-control'}),
+        }
 
 class ProductCreateForm(ModelForm):
     image = forms.CharField(required=True, widget=forms.TextInput({'class': 'form-control'}))

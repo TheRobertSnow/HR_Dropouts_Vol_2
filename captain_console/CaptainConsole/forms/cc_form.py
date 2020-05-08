@@ -13,6 +13,7 @@ class ProductUpdateForm(ModelForm):
             'price': widgets.NumberInput(attrs={'class': 'form-control'}),
             'description': widgets.TextInput(attrs={'class': 'form-control'}),
             'manufacturer': widgets.TextInput(attrs={'class': 'form-control'}),
+            'mainImage': widgets.TextInput(attrs={'class': 'form-control'}),
         }
 
 class ProductCreateForm(ModelForm):
@@ -26,4 +27,5 @@ class ProductCreateForm(ModelForm):
             'price': widgets.NumberInput(attrs={'class': 'form-control'}),
             'description': widgets.TextInput(attrs={'class': 'form-control'}),
             'manufacturer': widgets.TextInput(attrs={'class': 'form-control'}),
+            'mainImage': widgets.TextInput(attrs={'class': 'form-control'}),
         }

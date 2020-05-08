@@ -60,7 +60,9 @@ a:hover {
     padding: 10px;
 }
 .productPage .product-image {
-    width: 100%;
+    width: 25%;
+    height: 300px;
+    float: left;
     border: 1px solid black;
 }
 .productPage .product-name {

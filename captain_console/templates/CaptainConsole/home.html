@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="homePage">
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="searchButton" type="submit"></button>
+      <input id="search-box" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button id="search-btn" class="searchButton" type="submit"></button>
     </form>
+    <div class="homePage">
         {% for product in products %}
         <div class="product-container">
             <a href="/products/{{ product.id }}">

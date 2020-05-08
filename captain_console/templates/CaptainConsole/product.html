@@ -9,5 +9,6 @@
         {% for productimage in product.ProductImages %}
             <img src="{{ productimage.imageFileName }}"/>
         {% endfor %}
+        <a href="{% url 'delete_product' product.id %}" class="block btn btn-primary">Delete Product</a>
     </div>
 {% endblock %}

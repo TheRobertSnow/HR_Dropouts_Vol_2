@@ -48,3 +48,8 @@ def create_product(request):
     return render(request, 'CaptainConsole/create_product.html', {
         'form': form
     })
+
+def delete_product(request, id):
+    product = get_object_or_404(Products, pk=id)
+    product.delete()
+    return redirect('home')

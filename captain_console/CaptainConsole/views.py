@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
-from CaptainConsole.models import Products
+from CaptainConsole.models import Products, ProductImages
+from CaptainConsole.forms.cc_form import ProductCreateForm
 
 products = [
     {'id':'0','image':'1.jpg', 'name':'PlayStation1', 'price': 19.99, 'description':'This is some long as description of the item'},
@@ -29,7 +30,21 @@ def get_product_by_id(request, id):
     })
 
 def add_product(request):
-    return render(request, 'CaptainConsole/add_product.html')
+    return render(request, 'CaptainConsole/create_product.html')
 
 def sign_up(request):
     return render(request, 'CaptainConsole/signup.html')
+
+def create_product(request):
+    if request.method == 'POST':
+        form = ProductCreateForm(data=request.POST)
+        if form.is_valid():
+            product = form.save()
+            product_image = ProductImages(imageFileName=request.POST['image'], product=product)
+            product_image.save()
+            return redirect('home')
+    else:
+        form = ProductCreateForm()
+    return render(request, 'CaptainConsole/create_product.html', {
+        'form': form
+    })

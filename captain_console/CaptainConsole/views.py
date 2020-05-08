@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
-from CaptainConsole.models import Products, ProductImages
+from CaptainConsole.models import Products, ProductImages, Reviews
 from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm
+
 
 # Create your views here.
 def home(request):
@@ -12,7 +13,7 @@ def login(request):
     return render(request, 'CaptainConsole/login.html')
 
 def get_product_by_id(request, id):
-    context = {'product': get_object_or_404(Products, pk=id), 'images': ProductImages.objects.all()}
+    context = {'product': get_object_or_404(Products, pk=id), 'images': ProductImages.objects.all(), 'reviews': Reviews.objects.all()}
     return render(request, 'CaptainConsole/product.html', context)
 
 def add_product(request):

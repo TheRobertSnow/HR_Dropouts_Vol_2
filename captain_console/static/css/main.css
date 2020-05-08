@@ -1,3 +1,4 @@
+/* General css */
 html {
     background-color: #EBEBEB;
 }
@@ -56,42 +57,87 @@ a:hover {
     background-color: white;
     padding: 10px;
 }
-.productPage .product-mainImage {
-    padding: 20px;
-    width: 70%;
-    height: 750px;
-    float: left;
-    border: 2px solid #BFBFBF;
+.productPage .admin-product-options {
+    width: 100%;
 }
-.productPage .product-images {
+.productPage .product-container {
+    width: 100%;
+    overflow: auto;
+}
+/* Product Images */
+.product-container .productImageBox {
+    width: 35%;
+    float: left;
+}
+.productImageBox .product-mainImage {
     padding: 10px;
+    width: 100%;
+}
+.productImageBox .product-images {
+    padding: 5px;
     width: 30%;
-    height: 250px;
+}
+/* Product Info */
+.product-container .productInfo {
+    text-align: left;
+    width: 40%;
+    min-height: 450px;
+    padding-top: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
     float: left;
+}
+.productInfo .product-name {
+    width: 100%;
+    padding-bottom: 30px;
+}
+.productInfo .product-description {
+    width: 100%;
+}
+/* Product Buy Box */
+.product-container .buyProduct {
+    padding-top: 160px;
+    width: 25%;
+    min-height: 450px;
+    float: left;
+}
+.buyProduct .product-price {
+    font-size: 30px;
+    font-weight: bold;
+    width: 80%;
+    margin: auto;
     border: 2px solid #BFBFBF;
+    background-color: #EBEBEB;
 }
-.productPage .product-name {
-    width: 50%;
-    float: left;
-    height: 60px;
+.buyProduct .add-to-cart {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    width: 80%;
+    padding: 10px;
+    border: 2px solid #BFBFBF;
+    background-color: #4CAF50;
 }
-.productPage .product-price {
-    width: 50%;
-    float: left;
-    height: 60px;
-}
-.productPage .product-description {
-    width: 100%;
-}
-.productPage .product-review {
-    width: 100%;
+/* Review Container */
+.review-container .product-review {
+    width: 40%;
+    margin: 15px;
+    box-sizing: border-box;
+    display: inline-block;
     text-align: left;
     border: 2px solid #BFBFBF;
     border-radius: 5px;
     background-color: #EBEBEB;
     padding: 10px;
 }
-
+.product-review .stars {
+    width: 20px;
+}
+.product-review .product-review-title {
+    padding-top: 15px;
+    margin: 0px;
+}
+/* Navigation Header */
 .navbar {
     height: 54px;
     border-bottom: 2px solid #BFBFBF;

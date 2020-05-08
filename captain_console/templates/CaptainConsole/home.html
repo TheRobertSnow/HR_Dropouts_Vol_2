@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="homePage">
-        <h2>Product Catalog</h2>
         {% for product in products %}
         <div class="product-container">
             <a href="/products/{{ product.id }}">

@@ -10,11 +10,18 @@
         <h4 class="product-name">{{ product.name}}</h4>
         <p class="product-price">{{ product.price }} kr.</p>
         <p class="product-description">{{ product.description }}</p>
+        <h4>Reviews</h4>
         {% for review in reviews %}
             {% if product.id == review.product_id %}
-                <p class="product-reviews">Review from: {{ review.user_id}}</p>
-                <p class="product-reviews">Rating: {{ review.rating}}/5 Stars</p>
-                <p class="product-reviews">Text: {{ review.reviewText}}</p>
+                <div class="product-review">
+                    <p class="product-review-rating">Rating: {{ review.rating}}/5 Stars</p>
+                    <p class="product-review-text">Text: {{ review.reviewText}}</p>
+                    {% for user in users %}
+                        {% if user.id == review.user_id %}
+                            <p class="product-review-user">Posted by: {{ user.nickname }}</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
             {% endif %}
         {% endfor %}
         <a href="{% url 'delete_product' product.id %}" class="block btn btn-primary">Delete Product</a>

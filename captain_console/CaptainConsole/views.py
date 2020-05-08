@@ -14,7 +14,7 @@ def login(request):
     return render(request, 'CaptainConsole/login.html')
 
 def get_product_by_id(request, id):
-    context = {'product': get_object_or_404(Products, pk=id), 'images': ProductImages.objects.all(), 'reviews': Reviews.objects.all()}
+    context = {'product': get_object_or_404(Products, pk=id), 'images': ProductImages.objects.all(), 'reviews': Reviews.objects.all(), 'users': Users.objects.all()}
     return render(request, 'CaptainConsole/product.html', context)
 
 def add_product(request):

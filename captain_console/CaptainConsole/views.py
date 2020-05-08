@@ -2,11 +2,21 @@ from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from CaptainConsole.models import Products, ProductImages, Reviews, Users
 from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, UserCreateForm, AddImageForm
+from django.http import JsonResponse
 
 
 
 # Create your views here.
 def home(request):
+    if 'search_filter' in request.GET:
+        search_filter = request.GET['search_filter']
+        products = [{
+            'id': x.id,
+            'name': x.name,
+            'description': x.description,
+            'mainImage': x.mainImage
+        } for x in Products.objects.filter(name__icontains=search_filter)]
+        return JsonResponse({ 'data': products })
     context = {'products': Products.objects.all(), 'images': ProductImages.objects.all()}
     return render(request, 'CaptainConsole/home.html', context)
 

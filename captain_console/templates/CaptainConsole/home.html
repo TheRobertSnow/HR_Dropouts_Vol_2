@@ -4,7 +4,15 @@
         <h2>Product Catalog</h2>
         {% for product in products %}
         <div class="product-container">
-            {% include 'CaptainConsole/single_product.html' with product=product %}
+            <a href="/products/{{ product.id }}">
+                {% for image in images %}
+                    {% if product.id == image.product_id %}
+                        <img class="product-image" src="../../static/images/{{ image.imageFileName }}" alt="">
+                    {% endif %}
+                {% endfor %}
+                <h4 class="product-name">{{ product.name }}</h4>
+                <p class="product-price">{{ product.price }} kr.</p>
+            </a>
         </div>
         {% endfor %}
     </div>

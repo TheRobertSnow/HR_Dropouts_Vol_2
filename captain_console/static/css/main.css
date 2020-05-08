@@ -1,6 +1,3 @@
-.mydiv {
-    border-bottom: solid 2px rgba(155, 155, 155, .5);
-}
 html {
     background-color: #EBEBEB;
 }
@@ -94,13 +91,22 @@ a:hover {
     background-color: #EBEBEB;
     padding: 10px;
 }
-.productPage .product-review-user {
 
+.navbar {
+    height: 54px;
+    border-bottom: 2px solid #BFBFBF;
 }
-.productPage .product-review-rating {
-
+.nav-link {
+    border-right: 2px solid #BFBFBF;
 }
-.productPage .product-review-text {
-
+.searchButton {
+    border-radius: 5px;
+    border: 2px solid #BFBFBF;
+    width: 38px;
+    height: 38px;
+    background-color: white;
+    background-image: url('../images/searchlogo.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    padding: 0px;
 }
-

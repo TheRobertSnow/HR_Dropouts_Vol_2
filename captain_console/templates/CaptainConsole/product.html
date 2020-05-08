@@ -27,5 +27,6 @@
         {% endfor %}
         <a href="{% url 'delete_product' product.id %}" class="block btn btn-primary">Delete Product</a>
         <a href="{% url 'update_product' product.id %}" class="block btn btn-primary">Update Product</a>
+        <a href="{% url 'add_image' product.id %}" class="block btn btn-primary">Add Image</a>
     </div>
 {% endblock %}

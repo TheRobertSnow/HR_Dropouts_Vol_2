@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django.forms import widgets
 from django import forms
-from CaptainConsole.models import Products, Users
+from CaptainConsole.models import Products, Users, Reviews, ProductImages
 
 class ProductUpdateForm(ModelForm):
 
@@ -28,6 +28,7 @@ class ProductCreateForm(ModelForm):
             'price': widgets.NumberInput(attrs={'class': 'form-control'}),
             'description': widgets.TextInput(attrs={'class': 'form-control'}),
             'manufacturer': widgets.TextInput(attrs={'class': 'form-control'}),
+            'mainImage': widgets.TextInput(attrs={'class': 'form-control'}),
         }
 
 
@@ -42,5 +43,21 @@ class UserCreateForm(ModelForm):
             'email': widgets.TextInput(attrs={'class': 'form-control'}),
             'admin': widgets.CheckboxInput(attrs={'class': 'form-control'}),
             'mainImage': widgets.TextInput(attrs={'class': 'form-control'}),
+        }
+
+class AddImageForm(ModelForm):
+    class Meta:
+        model = ProductImages
+        exclude = ['id']
+        widgets = {
+            'imageFileName': widgets.TextInput(attrs={'class': 'form-control'}),
+        }
+
+class ReviewCreateForm(ModelForm):
+    class Meta:
+        model: Reviews
+        exclude = ['id']
+        widgets = {
+
         }
 

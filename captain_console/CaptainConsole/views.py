@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from CaptainConsole.models import Products, ProductImages, Reviews, Users
-from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, UserCreateForm
+from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, UserCreateForm, AddImageForm
 
 
 
@@ -65,6 +65,19 @@ def update_product(request, id):
     else:
         form = ProductUpdateForm(instance=instance)
     return render(request, 'CaptainConsole/update_product.html', {
+        'form': form,
+        'id': id
+    })
+
+def add_image(request, id):
+    if request.method == 'POST':
+        form = AddImageForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('product_details', id=id)
+    else:
+        form = AddImageForm()
+    return render(request, 'CaptainConsole/add_image.html', {
         'form': form,
         'id': id
     })

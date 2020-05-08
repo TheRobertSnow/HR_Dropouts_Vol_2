@@ -40,8 +40,7 @@ def create_user(request):
     if request.method == 'POST':
         form = UserCreateForm(data=request.POST)
         if form.is_valid():
-            user = form.save()
-            print(user)
+            form.save()
             return redirect('home')
     else:
         form = UserCreateForm()

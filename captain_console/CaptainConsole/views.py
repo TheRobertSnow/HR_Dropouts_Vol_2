@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
-from CaptainConsole.models import Products, ProductImages, Reviews, Users
-from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, UserCreateForm, AddImageForm
+from CaptainConsole.models import Products, ProductImages, Reviews, Users, Profile
+from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, UserCreateForm, AddImageForm, ProfileForm
 from django.http import JsonResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -90,4 +90,17 @@ def add_image(request, id):
     return render(request, 'CaptainConsole/add_image.html', {
         'form': form,
         'id': id
+    })
+
+def profile(request):
+    profile = Profile.objects.filter(user=request.user).first()
+    if request.method == 'POST':
+        form = ProfileForm(instance=profile, data=request.POST)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user = request.user
+            profile.save()
+            return redirect('profile')
+    return render(request, 'CaptainConsole/profile.html', {
+        'form': ProfileForm(instance=profile)
     })

@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Users(models.Model):
@@ -51,3 +52,8 @@ class SearchHistory(models.Model):
     keywordIDs = models.CharField(max_length=999)
     searchQuery = models.CharField(max_length=255)
     datetime = models.DateTimeField(max_length=255)
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    nickname = models.CharField(max_length=50)
+    profile_image = models.CharField(max_length=9999)

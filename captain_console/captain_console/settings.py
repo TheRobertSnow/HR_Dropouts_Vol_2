@@ -129,4 +129,4 @@ STATICFILES_DIRS = [
 ]
 
 LOGIN_URL = 'CaptainConsole/login'
-LOGIN_REDIRECT_URL='/CaptainConsole/profile'
+LOGIN_REDIRECT_URL='/profile'

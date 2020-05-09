@@ -3,6 +3,8 @@ from django.shortcuts import get_object_or_404
 from CaptainConsole.models import Products, ProductImages, Reviews, Users
 from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, UserCreateForm, AddImageForm
 from django.http import JsonResponse
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -20,17 +22,15 @@ def home(request):
     context = {'products': Products.objects.all(), 'images': ProductImages.objects.all()}
     return render(request, 'CaptainConsole/home.html', context)
 
-def login(request):
-    return render(request, 'CaptainConsole/login.html')
-
 def get_product_by_id(request, id):
     context = {'product': get_object_or_404(Products, pk=id), 'images': ProductImages.objects.all(), 'reviews': Reviews.objects.all(), 'users': Users.objects.all()}
     return render(request, 'CaptainConsole/product.html', context)
 
+@login_required
 def add_product(request):
     return render(request, 'CaptainConsole/create_product.html')
 
-
+@login_required
 def create_product(request):
     if request.method == 'POST':
         form = ProductCreateForm(data=request.POST)
@@ -48,23 +48,22 @@ def create_product(request):
 
 def create_user(request):
     if request.method == 'POST':
-        form = UserCreateForm(data=request.POST)
+        form = UserCreationForm(data=request.POST)
         if form.is_valid():
             form.save()
-            return redirect('home')
-    else:
-        form = UserCreateForm()
+            return redirect('login')
     return render(request, 'CaptainConsole/signup.html', {
-        'form': form
+        'form': UserCreationForm()
     })
 
 
-
+@login_required
 def delete_product(request, id):
     product = get_object_or_404(Products, pk=id)
     product.delete()
     return redirect('home')
 
+@login_required
 def update_product(request, id):
     instance = get_object_or_404(Products, pk=id)
     if request.method == 'POST':
@@ -79,6 +78,7 @@ def update_product(request, id):
         'id': id
     })
 
+@login_required
 def add_image(request, id):
     if request.method == 'POST':
         form = AddImageForm(data=request.POST)

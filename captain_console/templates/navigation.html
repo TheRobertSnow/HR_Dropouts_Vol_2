@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg" id="navBar">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -15,9 +15,6 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'create_product' %}">Add Product</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'profile' %}">Profile</a>
-            </li>
         {% else %}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'login' %}">Login</a>
@@ -27,10 +24,19 @@
             </li>
         {% endif %}
     </ul>
-      <input id="search-box" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button id="search-btn" class="searchButton" type="submit"></button>
     {% if user.is_authenticated %}
-        <img src="{{ user.profile.profile_image }}" class="avatar avatar-48 img-circle"/>
+        <a class="profile-image-container" href="{% url 'profile' %}">
+            {% if user.profile.nickname == "" %}
+                <p>Profile</p>
+            {% elif user.profile.nickname != "" %}
+                <p>{{ user.profile.nickname }}</p>
+            {% endif %}
+            {% if user.profile.profile_image == "" %}
+                <img class="profile-image" src="../static/images/genericUser.jpg" alt=""/>
+            {% elif user.profile.profile_image != "" %}
+                <img class="profile-image" src="{{ user.profile.profile_image }}" alt=""/>
+            {% endif %}
+        </a>
     {% endif %}
   </div>
 </nav>

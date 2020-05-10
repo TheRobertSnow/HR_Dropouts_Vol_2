@@ -1,7 +1,8 @@
 from django.forms import ModelForm
 from django.forms import widgets
+from django.forms import DateTimeField
 from django import forms
-from CaptainConsole.models import Products, Users, Reviews, ProductImages, Profile
+from CaptainConsole.models import Products, Reviews, ProductImages, Profile
 
 class ProductUpdateForm(ModelForm):
 
@@ -18,8 +19,6 @@ class ProductUpdateForm(ModelForm):
 
 
 class ProductCreateForm(ModelForm):
-    image = forms.CharField(required=True, widget=forms.TextInput({'class': 'form-control'}))
-
     class Meta:
         model = Products
         exclude = ['id']
@@ -28,20 +27,6 @@ class ProductCreateForm(ModelForm):
             'price': widgets.NumberInput(attrs={'class': 'form-control'}),
             'description': widgets.TextInput(attrs={'class': 'form-control'}),
             'manufacturer': widgets.TextInput(attrs={'class': 'form-control'}),
-            'mainImage': widgets.TextInput(attrs={'class': 'form-control'}),
-        }
-
-
-class UserCreateForm(ModelForm):
-    class Meta:
-        model = Users
-        exclude = ['id']
-        widgets = {
-            'nickname': widgets.TextInput(attrs={'class': 'form-control'}),
-            'password': widgets.TextInput(attrs={'class': 'form-control'}),
-            'avatar': widgets.TextInput(attrs={'class': 'form-control'}),
-            'email': widgets.TextInput(attrs={'class': 'form-control'}),
-            'admin': widgets.CheckboxInput(attrs={'class': 'form-control'}),
             'mainImage': widgets.TextInput(attrs={'class': 'form-control'}),
         }
 
@@ -56,8 +41,8 @@ class AddImageForm(ModelForm):
 class ReviewCreateForm(ModelForm):
     class Meta:
         model = Reviews
-        exclude = ['id', 'user', 'product']
-        CHOICES = (('1 Star', 1), ('2 Stars', 2), ('3 Stars', 3), ('4 Stars', 4), ('5 Stars', 5),)
+        exclude = ['id', 'user', 'product', 'datetime']
+        CHOICES = ((1, '1 Star'), (2, '2 Stars'), (3, '3 Stars'), (4, '4 Stars'), (5, '5 Stars'),)
         widgets = {
             'rating': widgets.Select(attrs={'class': 'form-control'}, choices=CHOICES),
             'reviewTitle': widgets.TextInput(attrs={'class': 'form-control'}),

@@ -23,7 +23,7 @@ class ProductImages(models.Model):
     product = models.ForeignKey(Products, on_delete=models.CASCADE, blank=True, null=True)
 
 class Reviews(models.Model):
-    user = models.ForeignKey(Users, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     product = models.ForeignKey(Products, on_delete=models.CASCADE, blank=True, null=True)
     rating = models.IntegerField()
     reviewTitle = models.CharField(max_length=255)

@@ -112,9 +112,11 @@ def review(request, id):
         form = ReviewCreateForm(instance=review, data=request.POST)
         if form.is_valid():
             review = form.save(commit=False)
-            review.user = request.user.id
+            review.user = request.user
             review.product = id
             review.datetime = datetime.datetime.now()
             review.save()
             return redirect('product_details', id=id)
-    return render(request, 'CaptainConsole/review.html')
+    return render(request, 'CaptainConsole/review.html', {
+        'form': ReviewCreateForm(instance=review)
+    })

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
-from CaptainConsole.models import Products, ProductImages, Reviews, Profile
-from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, AddImageForm, ProfileForm, ReviewCreateForm
+from CaptainConsole.models import Products, ProductImages, Reviews, Profile, ShoppingCart
+from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, AddImageForm, ProfileForm, ReviewCreateForm, CartCreateForm
 from django.http import JsonResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -23,7 +23,8 @@ def home(request):
     return render(request, 'CaptainConsole/home.html', context)
 
 def get_product_by_id(request, id):
-    context = {'product': get_object_or_404(Products, pk=id), 'images': ProductImages.objects.all(), 'reviews': Reviews.objects.all(), 'profiles': Profile.objects.all()}
+    context = {'product': get_object_or_404(Products, pk=id), 'images': ProductImages.objects.all(),
+               'reviews': Reviews.objects.all(), 'profiles': Profile.objects.all()}
     return render(request, 'CaptainConsole/product.html', context)
 
 @login_required
@@ -44,7 +45,6 @@ def create_product(request):
     return render(request, 'CaptainConsole/create_product.html', {
         'form': form
     })
-
 
 def create_user(request):
     if request.method == 'POST':
@@ -118,6 +118,24 @@ def review(request, id):
             return redirect('product_details', id=id)
     return render(request, 'CaptainConsole/review.html', {
         'form': ReviewCreateForm(instance=review)
+    })
+
+def cart(request):
+    return render(request, 'CaptainConsole/cart.html')
+
+@login_required
+def add_to_cart(request, id):
+    if request.method == 'POST':
+        form = CartCreateForm(data=request.POST)
+        if form.is_valid():
+            cart.user = request.user
+            cart.productID = id
+            cart.save()
+            return render(request, 'CaptainConsole/home.html')
+    else:
+        form = CartCreateForm()
+    return render(request, 'CaptainConsole/cart.html', {
+        'form': form
     })
 
 # def get_product_queryset(query=None):

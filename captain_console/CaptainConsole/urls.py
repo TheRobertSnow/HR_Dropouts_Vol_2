@@ -5,6 +5,8 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('home', views.home, name='home'),
+    path('cart', views.cart, name='cart'),
+    path('add_to_cart/<int:id>', views.add_to_cart, name='add_to_cart'),
     path('login', LoginView.as_view(template_name='CaptainConsole/login.html'), name='login'),
     path('logout', LogoutView.as_view(next_page='login'), name='logout'),
     path('sign_up', views.create_user, name='sign_up'),

@@ -25,8 +25,8 @@ class Reviews(models.Model):
 
 class ShoppingCart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    productIDs = models.CharField(max_length=999)
-    productAmount = models.CharField(max_length=999)
+    productID = models.ForeignKey(Products, on_delete=models.CASCADE, blank=True, null=True)
+    productAmount = models.IntegerField()
 
 class Orders(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)

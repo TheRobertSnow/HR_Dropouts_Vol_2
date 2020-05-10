@@ -35,11 +35,13 @@
                         {% endif %}
                         <h6 class="product-review-title">{{ review.reviewTitle }}</h6>
                         <p class="product-review-text">{{ review.reviewText }}</p>
+                        <p class="product-review-user">Posted
                         {% for profile in profiles %}
                             {% if profile.user_id == review.user_id %}
-                                <p class="product-review-user">Posted by {{ profile.nickname }} on {{ review.datetime }}</p>
+                                by {{ profile.nickname }}
                             {% endif %}
                         {% endfor %}
+                        on {{ review.datetime }}</p>
                     </div>
                 {% endif %}
             {% endfor %}

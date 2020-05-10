@@ -27,6 +27,8 @@
             </li>
         {% endif %}
     </ul>
+      <input id="search-box" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button id="search-btn" class="searchButton" type="submit"></button>
     {% if user.is_authenticated %}
         <img src="{{ user.profile.profile_image }}" class="avatar avatar-48 img-circle"/>
     {% endif %}

@@ -5,6 +5,7 @@ from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, U
 from django.http import JsonResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 import datetime
 
 
@@ -20,7 +21,7 @@ def home(request):
             'mainImage': x.mainImage
         } for x in Products.objects.filter(name__icontains=search_filter)]
         return JsonResponse({ 'data': products })
-    context = {'products': Products.objects.all(), 'images': ProductImages.objects.all()}
+    context = {'products': Products.objects.all()}
     return render(request, 'CaptainConsole/home.html', context)
 
 def get_product_by_id(request, id):
@@ -120,3 +121,14 @@ def review(request, id):
     return render(request, 'CaptainConsole/review.html', {
         'form': ReviewCreateForm(instance=review)
     })
+
+# def get_product_queryset(query=None):
+#     queryset = []
+#     queries = query.split(" ")
+#     for q in queries:
+#         products = Products.objects.filter(
+#             Q(name__icontains=q)
+#         ).distinct()
+#         for product in products:
+#             queryset.append(product)
+#     return list(set(queryset))

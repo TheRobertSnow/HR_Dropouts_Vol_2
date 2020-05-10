@@ -35,9 +35,9 @@
                         {% endif %}
                         <h6 class="product-review-title">{{ review.reviewTitle }}</h6>
                         <p class="product-review-text">{{ review.reviewText }}</p>
-                        {% for user in users %}
-                            {% if user.id == review.user_id %}
-                                <p class="product-review-user">Posted by {{ user.nickname }} on {{ review.datetime }}</p>
+                        {% for profile in profiles %}
+                            {% if profile.user_id == review.user_id %}
+                                <p class="product-review-user">Posted by {{ profile.nickname }} on {{ review.datetime }}</p>
                             {% endif %}
                         {% endfor %}
                     </div>
@@ -45,12 +45,12 @@
             {% endfor %}
         </div>
         {% if user.is_authenticated %}
-        <div class="admin-product-options">
-            <a href="{% url 'delete_product' product.id %}" class="block btn btn-primary">Delete Product</a>
-            <a href="{% url 'update_product' product.id %}" class="block btn btn-primary">Update Product</a>
-            <a href="{% url 'add_image' product.id %}" class="block btn btn-primary">Add Image</a>
-            <a href="{% url 'review_product' product.id %}" class="block btn btn-primary">Review Product</a>
-        </div>
+            <div class="admin-product-options">
+                <a href="{% url 'delete_product' product.id %}" class="block btn btn-primary">Delete Product</a>
+                <a href="{% url 'update_product' product.id %}" class="block btn btn-primary">Update Product</a>
+                <a href="{% url 'add_image' product.id %}" class="block btn btn-primary">Add Image</a>
+                <a href="{% url 'review_product' product.id %}" class="block btn btn-primary">Review Product</a>
+            </div>
         {% endif %}
     </div>
 {% endblock %}

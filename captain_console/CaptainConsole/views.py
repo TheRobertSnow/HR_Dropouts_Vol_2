@@ -1,13 +1,11 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
-from CaptainConsole.models import Products, ProductImages, Reviews, Users, Profile
-from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, UserCreateForm, AddImageForm, ProfileForm, ReviewCreateForm
+from CaptainConsole.models import Products, ProductImages, Reviews, Profile
+from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, AddImageForm, ProfileForm, ReviewCreateForm
 from django.http import JsonResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 import datetime
-
-
 
 # Create your views here.
 def home(request):
@@ -24,7 +22,7 @@ def home(request):
     return render(request, 'CaptainConsole/home.html', context)
 
 def get_product_by_id(request, id):
-    context = {'product': get_object_or_404(Products, pk=id), 'images': ProductImages.objects.all(), 'reviews': Reviews.objects.all(), 'users': Users.objects.all()}
+    context = {'product': get_object_or_404(Products, pk=id), 'images': ProductImages.objects.all(), 'reviews': Reviews.objects.all(), 'profiles': Profile.objects.all()}
     return render(request, 'CaptainConsole/product.html', context)
 
 @login_required
@@ -113,8 +111,7 @@ def review(request, id):
         if form.is_valid():
             review = form.save(commit=False)
             review.user = request.user
-            review.product = id
-            review.datetime = datetime.datetime.now()
+            review.product_id = id
             review.save()
             return redirect('product_details', id=id)
     return render(request, 'CaptainConsole/review.html', {

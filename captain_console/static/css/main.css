@@ -138,14 +138,47 @@ a:hover {
     margin: 0px;
 }
 /* Navigation Header */
-.navbar {
+#navBar {
     height: 54px;
     border-bottom: 2px solid #BFBFBF;
 }
-.nav-link {
+#navBar ul > li + li {
+    border-left: 2px solid #BFBFBF;
+}
+.nav-link:hover {
+    color: #BFBFBF;
+}
+.profile-image-container p {
+    display: inline-block;
     border-right: 2px solid #BFBFBF;
+    padding: 5px;
+    margin: 0px;
+}
+.profile-image {
+    height: 48px;
+    width: 48px;
+    border: 2px solid #BFBFBF;
+    border-radius: 50%;
+    background-image: url('../images/genericUser.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+/* Search Form */
+.searchForm {
+    width: 100%;
+    overflow: auto;
+    padding: 5px;
+}
+.searchQuery {
+    float: right;
+    border-radius: 5px;
+    border: 2px solid #BFBFBF;
+    width: 200px;
+    height: 38px;
+    background-color: white;
 }
 .searchButton {
+    float: right;
     border-radius: 5px;
     border: 2px solid #BFBFBF;
     width: 38px;
@@ -155,9 +188,4 @@ a:hover {
     background-repeat: no-repeat;
     background-size: 100% 100%;
     padding: 0px;
-}
-.profile-image {
-    max-height: 40px;
-    width: auto;
-
 }

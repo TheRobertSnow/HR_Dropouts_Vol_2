@@ -5,6 +5,7 @@ from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, A
 from django.http import JsonResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
 import datetime
 
 # Create your views here.
@@ -112,6 +113,7 @@ def review(request, id):
             review = form.save(commit=False)
             review.user = request.user
             review.product_id = id
+            review.datetime = timezone.now()
             review.save()
             return redirect('product_details', id=id)
     return render(request, 'CaptainConsole/review.html', {

@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.utils import timezone
 
 # Create your models here.
 class Products(models.Model):
@@ -22,7 +21,7 @@ class Reviews(models.Model):
     rating = models.IntegerField()
     reviewTitle = models.CharField(max_length=255)
     reviewText = models.CharField(max_length=999)
-    datetime = models.DateTimeField(default=timezone.now)
+    datetime = models.DateTimeField()
 
 class ShoppingCart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
@@ -45,7 +44,7 @@ class SearchHistory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     keywordIDs = models.CharField(max_length=999)
     searchQuery = models.CharField(max_length=255)
-    datetime = models.DateTimeField(default=timezone.now)
+    datetime = models.DateTimeField()
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

@@ -41,7 +41,7 @@ class AddImageForm(ModelForm):
 class ReviewCreateForm(ModelForm):
     class Meta:
         model = Reviews
-        exclude = ['id', 'user', 'product']
+        exclude = ['id', 'user', 'product', 'datetime']
         CHOICES = ((1, '1 Star'), (2, '2 Stars'), (3, '3 Stars'), (4, '4 Stars'), (5, '5 Stars'),)
         widgets = {
             'rating': widgets.Select(attrs={'class': 'form-control'}, choices=CHOICES),

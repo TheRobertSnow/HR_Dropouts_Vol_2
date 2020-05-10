@@ -162,9 +162,6 @@ a:hover {
     width: 48px;
     border: 2px solid #BFBFBF;
     border-radius: 50%;
-    background-image: url('../images/genericUser.jpg');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
 }
 .profile-image-container {
     padding-left: 15px;

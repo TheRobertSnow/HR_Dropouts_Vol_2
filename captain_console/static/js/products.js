@@ -3,7 +3,7 @@ $(document).ready(function () {
         e.preventDefault();
         var searchText = $('#search-box').val();
         $.ajax( {
-            url: '?search_filter=' + searchText,
+            url: '/?search_filter=' + searchText,
             type: 'GET',
             success: function(resp) {
                 var newHtml = resp.data.map(d => {

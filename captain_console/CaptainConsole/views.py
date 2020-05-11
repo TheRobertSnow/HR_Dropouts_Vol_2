@@ -65,9 +65,7 @@ def create_product(request):
     if request.method == 'POST':
         form = ProductCreateForm(data=request.POST)
         if form.is_valid():
-            product = form.save()
-            product_image = ProductImages(imageFileName=request.POST['image'], product=product)
-            product_image.save()
+            form.save()
             return redirect('home')
     else:
         form = ProductCreateForm()

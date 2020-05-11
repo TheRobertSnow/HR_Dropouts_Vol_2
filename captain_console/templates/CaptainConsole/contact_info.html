@@ -5,7 +5,7 @@
             <td><a href="{% url 'cart_info' %}">1. Cart</a></td>
             <td><a href="{% url 'contact_info' %}">2. Contact Information</a></td>
             <td><a href="{% url 'shipping_and_payment' %}">3. Shipping and Payment</a></td>
-            <td><a href="#">4. Order Review</a></td>
+            <td>4. Order Review</td>
         </tr>
     </table>
     <table class="infoTable">
@@ -52,10 +52,10 @@
     </table>
     <table class="options">
         <tr>
-            <td><a href="{% url 'cart_info' %}">Previous Step:<br>Cart</a></td>
+            <td><a href="{% url 'cart_info' %}">Previous Step: Cart</a></td>
             <td>Shipping: </td>
             <td>Total: </td>
-            <td><a href="{% url 'shipping_and_payment' %}">Next step:<br>Shipping and Payment</a></td>
+            <td><a href="{% url 'shipping_and_payment' %}">Next step: Shipping and Payment</a></td>
         </tr>
     </table>
 {% endblock %}

@@ -207,7 +207,7 @@ a:hover {
     background-size: 100% 100%;
     padding: 0px;
 }
-.sidenav {
+.history {
     width: 10%;
     position: fixed;
     z-index: 1;
@@ -218,7 +218,7 @@ a:hover {
     padding: 8px 0;
 }
 
-.sidenav a {
+.history a {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 12pt;
@@ -226,7 +226,7 @@ a:hover {
     display: block;
 }
 
-.sidenav a:hover {
+.history a:hover {
     color: #064579;
 }
 
@@ -235,6 +235,6 @@ a:hover {
 }
 
 .aside-img{
-    width: 30%;
+    width: 40%;
     height: auto;
 }

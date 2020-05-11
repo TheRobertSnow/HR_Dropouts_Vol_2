@@ -16,11 +16,28 @@
         {% for product in products %}
         <div class="product-container">
             <a href="/products/{{ product.id }}">
-                <img class="product-mainImage" src="../../static/images/{{ product.mainImage }}" alt="">
+                <img class="product-mainImage" src="{{ product.mainImage }}" alt="">
                 <h4 class="product-name">{{ product.name }}</h4>
                 <p class="product-price">{{ product.price }} kr.</p>
             </a>
         </div>
         {% endfor %}
     </div>
+    {% if user.is_authenticated %}
+    <div class="history">
+        <h4>Recently Viewed</h4>
+        {% for product in products %}
+        {% for prev in previous %}
+            {% if prev.product == product.id %}
+                <div class="aside-container">
+                    <a href="/products/{{ product.id }}">
+                        <img class="aside-img" src="{{ product.mainImage }}" alt="">
+                        <p class="aside-text">{{ product.name }}</p>
+                    </a>
+                </div>
+            {% endif %}
+        {% endfor %}
+        {% endfor %}
+    </div>
+    {% endif %}
 {% endblock %}

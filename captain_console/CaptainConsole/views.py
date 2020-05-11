@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
-from CaptainConsole.models import Products, ProductImages, Reviews, Profile
+from CaptainConsole.models import Products, ProductImages, Reviews, Profile, PreviouslyViewed
 from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, AddImageForm, ProfileForm, ReviewCreateForm
 from django.http import JsonResponse
 from django.contrib.auth.forms import UserCreationForm
@@ -37,7 +37,7 @@ def home(request):
                 'mainImage': x.mainImage
             } for x in Products.objects.filter(name__icontains=search_filter)]
         return JsonResponse({ 'data': products })
-    context = {'products': Products.objects.all()}
+    context = {'products': Products.objects.all(), 'previous': PreviouslyViewed.objects.all().order_by('datetime')[:10]}
     return render(request, 'CaptainConsole/home.html', context)
 
 def get_product_by_id(request, id):
@@ -137,14 +137,3 @@ def review(request, id):
     return render(request, 'CaptainConsole/review.html', {
         'form': ReviewCreateForm(instance=review)
     })
-
-# def get_product_queryset(query=None):
-#     queryset = []
-#     queries = query.split(" ")
-#     for q in queries:
-#         products = Products.objects.filter(
-#             Q(name__icontains=q)
-#         ).distinct()
-#         for product in products:
-#             queryset.append(product)
-#     return list(set(queryset))

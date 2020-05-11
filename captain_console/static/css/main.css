@@ -112,9 +112,10 @@ a:hover {
 .buyProduct .add-to-cart {
     font-size: 16px;
     font-weight: bold;
+    margin: auto;
     margin-top: 10px;
+    padding: 5px;
     width: 80%;
-    padding: 10px;
     border: 2px solid #bfbfbf;
     background-color: #4caf50;
 }
@@ -206,4 +207,18 @@ a:hover {
     background-repeat: no-repeat;
     background-size: 100% 100%;
     padding: 0px;
+}
+
+.cartTable {
+    width: 70%;
+    padding: 10px;
+    margin: auto;
+    font-size: 20px;
+}
+.cartRow td, .cartRow th{
+    width: 20%;
+    border: 2px solid #BFBFBF;
+}
+.cartRow td img {
+    width: 75%;
 }

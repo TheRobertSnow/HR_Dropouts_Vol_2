@@ -148,7 +148,6 @@ def item_decrement(request, id):
     cart.decrement(product=product)
     return redirect("cart_detail")
 
-
 @login_required
 def cart_clear(request):
     cart = Cart(request)
@@ -158,7 +157,7 @@ def cart_clear(request):
 
 @login_required
 def cart_detail(request):
-    return render(request, 'cart/cart-detail.html')
+    return render(request, 'CaptainConsole/cart-detail.html')
 
 # def get_product_queryset(query=None):
 #     queryset = []

@@ -25,7 +25,6 @@ class Reviews(models.Model):
 
 class Orders(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    shoppingCart = models.ForeignKey(ShoppingCart, on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length=255)
     price = models.FloatField()
     amount = models.FloatField()

@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-import datetime
+from cart.cart import Cart
 
 # Create your views here.
 def home(request):
@@ -120,23 +120,45 @@ def review(request, id):
         'form': ReviewCreateForm(instance=review)
     })
 
-def cart(request):
-    return render(request, 'CaptainConsole/cart.html')
+@login_required
+def cart_add(request, id):
+    cart = Cart(request)
+    product = Products.objects.get(id=id)
+    cart.add(product=product)
+    return redirect("home")
 
 @login_required
-def add_to_cart(request, id):
-    if request.method == 'POST':
-        form = CartCreateForm(data=request.POST)
-        if form.is_valid():
-            cart.user = request.user
-            cart.productID = id
-            cart.save()
-            return render(request, 'CaptainConsole/home.html')
-    else:
-        form = CartCreateForm()
-    return render(request, 'CaptainConsole/cart.html', {
-        'form': form
-    })
+def item_clear(request, id):
+    cart = Cart(request)
+    product = Products.objects.get(id=id)
+    cart.remove(product)
+    return redirect("cart_detail")
+
+@login_required
+def item_increment(request, id):
+    cart = Cart(request)
+    product = Products.objects.get(id=id)
+    cart.add(product=product)
+    return redirect("cart_detail")
+
+@login_required
+def item_decrement(request, id):
+    cart = Cart(request)
+    product = Products.objects.get(id=id)
+    cart.decrement(product=product)
+    return redirect("cart_detail")
+
+
+@login_required
+def cart_clear(request):
+    cart = Cart(request)
+    cart.clear()
+    return redirect("cart_detail")
+
+
+@login_required
+def cart_detail(request):
+    return render(request, 'cart/cart-detail.html')
 
 # def get_product_queryset(query=None):
 #     queryset = []

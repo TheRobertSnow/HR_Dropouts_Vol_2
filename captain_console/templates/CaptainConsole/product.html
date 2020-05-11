@@ -17,7 +17,7 @@
             <div class="buyProduct">
                 <p class="product-price">{{ product.price }} kr.</p>
                 <button class="add-to-cart">ADD TO CART</button>
-                <a href="{% url 'add_to_cart' product.id %}" class="block btn btn-primary">ADD TO CART</a>
+                <a href="{% url 'cart_add' product.id %}" class="block btn btn-primary">ADD TO CART</a>
             </div>
         </div>
         <div class="review-container">

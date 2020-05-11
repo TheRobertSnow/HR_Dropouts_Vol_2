@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
-from CaptainConsole.models import Products, ProductImages, Reviews, Profile, ShoppingCart
+from CaptainConsole.models import Products, ProductImages, Reviews, Profile
 from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, AddImageForm, ProfileForm, ReviewCreateForm, CartCreateForm
 from django.http import JsonResponse
 from django.contrib.auth.forms import UserCreationForm
@@ -176,14 +176,3 @@ def cart_clear(request):
 @login_required
 def cart_detail(request):
     return render(request, 'CaptainConsole/cart-detail.html')
-
-# def get_product_queryset(query=None):
-#     queryset = []
-#     queries = query.split(" ")
-#     for q in queries:
-#         products = Products.objects.filter(
-#             Q(name__icontains=q)
-#         ).distinct()
-#         for product in products:
-#             queryset.append(product)
-#     return list(set(queryset))

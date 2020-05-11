@@ -23,11 +23,6 @@ class Reviews(models.Model):
     reviewText = models.CharField(max_length=999)
     datetime = models.DateTimeField()
 
-class ShoppingCart(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    productID = models.ForeignKey(Products, on_delete=models.CASCADE, blank=True, null=True)
-    productAmount = models.IntegerField()
-
 class Orders(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     shoppingCart = models.ForeignKey(ShoppingCart, on_delete=models.CASCADE, blank=True, null=True)

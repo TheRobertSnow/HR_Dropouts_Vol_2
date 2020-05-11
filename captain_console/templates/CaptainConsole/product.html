@@ -3,10 +3,10 @@
     <div class="productPage">
         <div class="product-container">
             <div class="productImageBox">
-                <img class="product-mainImage" src="{{ product.mainImage }}" alt="">
+                <img class="product-mainImage" src="{{ product.mainImageLink }}" alt="">
                 {% for image in images %}
                     {% if product.id == image.product_id %}
-                        <img class="product-images" src="{{ image.imageFileName }}" alt="">
+                        <img class="product-images" src="{{ image.imageLink }}" alt="">
                     {% endif %}
                 {% endfor %}
             </div>

@@ -12,7 +12,7 @@
             </tr>
             {% for key,value in request.session.cart.items %}
                 <tr class="cartRow">
-                    <td><img src="{{ value.mainImage }}" alt=""/></td>
+                    <td><img src="{{ value.mainImageLink }}" alt=""/></td>
                     <td>{{value.name}}</td>
                     <td>
                         <a href="{% url 'item_decrement' value.product_id %}">-</a>

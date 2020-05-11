@@ -13,7 +13,7 @@ class ProductUpdateForm(ModelForm):
             'price': widgets.NumberInput(attrs={'class': 'form-control'}),
             'description': widgets.TextInput(attrs={'class': 'form-control'}),
             'manufacturer': widgets.TextInput(attrs={'class': 'form-control'}),
-            'mainImage': widgets.TextInput(attrs={'class': 'form-control'}),
+            'mainImageLink': widgets.TextInput(attrs={'class': 'form-control'}),
         }
 
 
@@ -26,7 +26,7 @@ class ProductCreateForm(ModelForm):
             'price': widgets.NumberInput(attrs={'class': 'form-control'}),
             'description': widgets.TextInput(attrs={'class': 'form-control'}),
             'manufacturer': widgets.TextInput(attrs={'class': 'form-control'}),
-            'mainImage': widgets.TextInput(attrs={'class': 'form-control'}),
+            'mainImageLink': widgets.TextInput(attrs={'class': 'form-control'}),
         }
 
 class CartCreateForm(ModelForm):
@@ -40,9 +40,9 @@ class CartCreateForm(ModelForm):
 class AddImageForm(ModelForm):
     class Meta:
         model = ProductImages
-        exclude = ['id']
+        exclude = ['id', 'product']
         widgets = {
-            'imageFileName': widgets.TextInput(attrs={'class': 'form-control'}),
+            'imageLink': widgets.TextInput(attrs={'class': 'form-control'}),
         }
 
 class ReviewCreateForm(ModelForm):

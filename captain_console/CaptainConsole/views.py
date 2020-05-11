@@ -18,7 +18,7 @@ def home(request):
                 'name': x.name,
                 'price': x.price,
                 'description': x.description,
-                'mainImage': x.mainImage
+                'mainImageLink': x.mainImageLink
             } for x in Products.objects.filter(name__icontains=search_filter).order_by('name')]
         elif request.headers['addFilter'] == 'by_price':
             products = [{
@@ -26,7 +26,7 @@ def home(request):
                 'name': x.name,
                 'price': x.price,
                 'description': x.description,
-                'mainImage': x.mainImage
+                'mainImageLink': x.mainImageLink
             } for x in Products.objects.filter(name__icontains=search_filter).order_by('price')]
         else:
             products = [{
@@ -34,7 +34,7 @@ def home(request):
                 'name': x.name,
                 'price': x.price,
                 'description': x.description,
-                'mainImage': x.mainImage
+                'mainImageLink': x.mainImageLink
             } for x in Products.objects.filter(name__icontains=search_filter)]
         return JsonResponse({ 'data': products })
     context = {'products': Products.objects.all()}

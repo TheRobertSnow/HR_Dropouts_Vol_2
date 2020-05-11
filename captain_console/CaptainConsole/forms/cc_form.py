@@ -65,7 +65,7 @@ class CustomUserCreationForm(forms.Form):
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
 
     def clean_username(self):
-        username = self.cleaned_data['username'].lower()
+        username = self.cleaned_data['username']
         r = User.objects.filter(username=username)
         if r.count():
             raise ValidationError("Username already exists")

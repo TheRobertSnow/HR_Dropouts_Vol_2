@@ -36,7 +36,11 @@ def home(request):
                 'mainImageLink': x.mainImageLink
             } for x in Products.objects.filter(name__icontains=search_filter)]
         return JsonResponse({ 'data': products })
-    context = {'products': Products.objects.all(), 'previous': PreviouslyViewed.objects.all().order_by('datetime')[:10]}
+    if request.user.is_authenticated:
+        context = {'products': Products.objects.all(),
+                   'previous': PreviouslyViewed.objects.filter(user=request.user).order_by('-datetime')[:5]}
+    else:
+        context = {'products': Products.objects.all()}
     return render(request, 'CaptainConsole/home.html', context)
 
 def get_product_by_id(request, id):

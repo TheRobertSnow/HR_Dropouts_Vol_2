@@ -2,7 +2,8 @@ from django.forms import ModelForm
 from django.forms import widgets
 from django.forms import DateTimeField
 from django import forms
-from CaptainConsole.models import Products, Reviews, ProductImages, Profile, ShoppingCart, PreviouslyViewed
+from CaptainConsole.models import Products, Reviews, ProductImages, Profile, PreviouslyViewed
+
 
 class ProductUpdateForm(ModelForm):
     class Meta:
@@ -27,14 +28,6 @@ class ProductCreateForm(ModelForm):
             'description': widgets.TextInput(attrs={'class': 'form-control'}),
             'manufacturer': widgets.TextInput(attrs={'class': 'form-control'}),
             'mainImageLink': widgets.TextInput(attrs={'class': 'form-control'}),
-        }
-
-class CartCreateForm(ModelForm):
-    class Meta:
-        model = ShoppingCart
-        exclude = ['id']
-        widgets = {
-            'productAmount': widgets.NumberInput(attrs={'class': 'form-control'}),
         }
 
 class AddImageForm(ModelForm):

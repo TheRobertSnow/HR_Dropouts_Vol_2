@@ -71,9 +71,7 @@ def create_product(request):
             return redirect('home')
     else:
         form = ProductCreateForm()
-    return render(request, 'CaptainConsole/create_product.html', {
-        'form': form
-    })
+    return render(request, 'CaptainConsole/create_product.html', {'form': form})
 
 def create_user(request):
     if request.method == 'POST':

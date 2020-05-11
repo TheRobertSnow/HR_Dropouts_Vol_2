@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+    <table class="stepMenu">
+        <tr>
+            <td><a href="{% url 'cart_info' %}">1. Cart</a></td>
+            <td><a href="{% url 'contact_info' %}">2. Contact Information</a></td>
+            <td><a href="{% url 'shipping_and_payment' %}">3. Shipping and Payment</a></td>
+            <td><a href="{% url 'order_review' %}">4. Order Review</a></td>
+        </tr>
+    </table>
+    <table class="options">
+        <tr>
+            <td><a href="{% url 'shipping_and_payment' %}">Previous Step:<br>Shipping and Payment</a></td>
+            <td>Shipping: </td>
+            <td>Total: </td>
+            <td><a href="{% url 'order_review' %}">Place Order</a></td>
+        </tr>
+    </table>
+{% endblock %}

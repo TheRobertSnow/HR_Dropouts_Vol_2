@@ -186,3 +186,14 @@ def cart_clear(request):
 def cart_detail(request):
     return render(request, 'CaptainConsole/cart-detail.html')
 
+def cart_info(request):
+    return render(request, 'CaptainConsole/cart-detail.html')
+
+def contact_info(request):
+    return render(request, 'CaptainConsole/contact_info.html')
+
+def shipping_and_payment(request):
+    return render(request, 'CaptainConsole/shipping_and_payment.html')
+
+def order_review(request):
+    return render(request, 'CaptainConsole/order_review.html')

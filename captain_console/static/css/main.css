@@ -255,6 +255,23 @@ a:hover {
 .cartRow td img {
     width: 75%;
 }
+.infoTable {
+    text-align: right;
+    margin: auto;
+}
+.infoTable td {
+    padding: 10px;
+}
+.stepMenu, .options {
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 70%;
+}
+.stepMenu td, .options td {
+    width: 25%;
+    border: 2px solid #BFBFBF;
+}
 /*--------------------------------------------------------------------------------------------------------------------*/
 /* Signup Page */
 /*--------------------------------------------------------------------------------------------------------------------*/

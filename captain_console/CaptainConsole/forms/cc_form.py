@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django.forms import widgets
 from django import forms
-from CaptainConsole.models import Products, Reviews, ProductImages, Profile
+from CaptainConsole.models import Products, Reviews, ProductImages, Profile, PreviouslyViewed
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
@@ -58,7 +58,6 @@ class ProfileForm(ModelForm):
             'profile_image': widgets.TextInput(attrs={'class': 'form-control'})
         }
 
-
 class CustomUserCreationForm(forms.Form):
     username = forms.CharField(label='Enter Username', min_length=4, max_length=150)
     email = forms.EmailField(label='Enter email')
@@ -95,3 +94,8 @@ class CustomUserCreationForm(forms.Form):
             self.cleaned_data['password1']
         )
         return user
+
+class PreviouslyViewedForm(ModelForm):
+    class Meta:
+        model = PreviouslyViewed
+        exclude = ['id', 'product', 'user', 'datetime']

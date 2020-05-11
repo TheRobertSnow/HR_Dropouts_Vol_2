@@ -1,13 +1,11 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
-from CaptainConsole.models import Products, ProductImages, Reviews, Profile
-from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, AddImageForm, ProfileForm, ReviewCreateForm, CustomUserCreationForm
+from CaptainConsole.models import Products, ProductImages, Reviews, Profile, PreviouslyViewed
+from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, AddImageForm, ProfileForm, ReviewCreateForm, CustomUserCreationForm, PreviouslyViewedForm
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from cart.cart import Cart
-from django.contrib import messages
-
 
 # Create your views here.
 def home(request):
@@ -38,10 +36,18 @@ def home(request):
                 'mainImageLink': x.mainImageLink
             } for x in Products.objects.filter(name__icontains=search_filter)]
         return JsonResponse({ 'data': products })
-    context = {'products': Products.objects.all()}
+    context = {'products': Products.objects.all(), 'previous': PreviouslyViewed.objects.all().order_by('datetime')[:10]}
     return render(request, 'CaptainConsole/home.html', context)
 
 def get_product_by_id(request, id):
+    if request.user.is_authenticated:
+        form = PreviouslyViewedForm()
+        prod = get_object_or_404(Products, pk=id)
+        prev = form.save(commit=False)
+        prev.product = prod
+        prev.user = request.user
+        prev.datetime = timezone.now()
+        prev.save()
     context = {'product': get_object_or_404(Products, pk=id), 'images': ProductImages.objects.all(),
                'reviews': Reviews.objects.all(), 'profiles': Profile.objects.all()}
     return render(request, 'CaptainConsole/product.html', context)
@@ -172,7 +178,7 @@ def cart_clear(request):
     cart.clear()
     return redirect("cart_detail")
 
-
 @login_required
 def cart_detail(request):
     return render(request, 'CaptainConsole/cart-detail.html')
+

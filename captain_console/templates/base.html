@@ -8,19 +8,6 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
 </head>
 <body>
-    {% if user.is_authenticated %}
-    <aside class="sidenav">
-        <h4>Recently Viewed</h4>
-        {% for product in products %}
-        <div class="aside-container">
-            <a href="/products/{{ product.id }}">
-                <img class="aside-img" src="../../static/images/{{ product.mainImage }}" alt="">
-                <p class="aside-text">{{ product.name }}</p>
-            </a>
-        </div>
-        {% endfor %}
-    </aside>
-    {% endif %}
     {% include 'navigation.html' %}
     {% block content %}
     {% endblock %}

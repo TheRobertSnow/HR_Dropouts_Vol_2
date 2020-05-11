@@ -23,4 +23,21 @@
         </div>
         {% endfor %}
     </div>
+    {% if user.is_authenticated %}
+    <div class="history">
+        <h4>Recently Viewed</h4>
+        {% for product in products %}
+        {% for prev in previous %}
+            {% if prev.product == product.id %}
+                <div class="aside-container">
+                    <a href="/products/{{ product.id }}">
+                        <img class="aside-img" src="{{ product.mainImage }}" alt="">
+                        <p class="aside-text">{{ product.name }}</p>
+                    </a>
+                </div>
+            {% endif %}
+        {% endfor %}
+        {% endfor %}
+    </div>
+    {% endif %}
 {% endblock %}

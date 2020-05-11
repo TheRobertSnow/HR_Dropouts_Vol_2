@@ -2,10 +2,9 @@ from django.forms import ModelForm
 from django.forms import widgets
 from django.forms import DateTimeField
 from django import forms
-from CaptainConsole.models import Products, Reviews, ProductImages, Profile
+from CaptainConsole.models import Products, Reviews, ProductImages, Profile, ShoppingCart
 
 class ProductUpdateForm(ModelForm):
-
     class Meta:
         model = Products
         exclude = ['id']
@@ -14,7 +13,7 @@ class ProductUpdateForm(ModelForm):
             'price': widgets.NumberInput(attrs={'class': 'form-control'}),
             'description': widgets.TextInput(attrs={'class': 'form-control'}),
             'manufacturer': widgets.TextInput(attrs={'class': 'form-control'}),
-            'mainImage': widgets.TextInput(attrs={'class': 'form-control'}),
+            'mainImageLink': widgets.TextInput(attrs={'class': 'form-control'}),
         }
 
 
@@ -27,15 +26,23 @@ class ProductCreateForm(ModelForm):
             'price': widgets.NumberInput(attrs={'class': 'form-control'}),
             'description': widgets.TextInput(attrs={'class': 'form-control'}),
             'manufacturer': widgets.TextInput(attrs={'class': 'form-control'}),
-            'mainImage': widgets.TextInput(attrs={'class': 'form-control'}),
+            'mainImageLink': widgets.TextInput(attrs={'class': 'form-control'}),
+        }
+
+class CartCreateForm(ModelForm):
+    class Meta:
+        model = ShoppingCart
+        exclude = ['id']
+        widgets = {
+            'productAmount': widgets.NumberInput(attrs={'class': 'form-control'}),
         }
 
 class AddImageForm(ModelForm):
     class Meta:
         model = ProductImages
-        exclude = ['id']
+        exclude = ['id', 'product']
         widgets = {
-            'imageFileName': widgets.TextInput(attrs={'class': 'form-control'}),
+            'imageLink': widgets.TextInput(attrs={'class': 'form-control'}),
         }
 
 class ReviewCreateForm(ModelForm):

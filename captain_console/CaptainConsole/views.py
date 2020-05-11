@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from CaptainConsole.models import Products, ProductImages, Reviews, Profile, PreviouslyViewed
-from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, AddImageForm, ProfileForm, ReviewCreateForm
+from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, AddImageForm, ProfileForm, ReviewCreateForm, CartCreateForm
 from django.http import JsonResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-import datetime
+from cart.cart import Cart
 
 # Create your views here.
 def home(request):
@@ -18,7 +18,7 @@ def home(request):
                 'name': x.name,
                 'price': x.price,
                 'description': x.description,
-                'mainImage': x.mainImage
+                'mainImageLink': x.mainImageLink
             } for x in Products.objects.filter(name__icontains=search_filter).order_by('name')]
         elif request.headers['addFilter'] == 'by_price':
             products = [{
@@ -26,7 +26,7 @@ def home(request):
                 'name': x.name,
                 'price': x.price,
                 'description': x.description,
-                'mainImage': x.mainImage
+                'mainImageLink': x.mainImageLink
             } for x in Products.objects.filter(name__icontains=search_filter).order_by('price')]
         else:
             products = [{
@@ -34,14 +34,15 @@ def home(request):
                 'name': x.name,
                 'price': x.price,
                 'description': x.description,
-                'mainImage': x.mainImage
+                'mainImageLink': x.mainImageLink
             } for x in Products.objects.filter(name__icontains=search_filter)]
         return JsonResponse({ 'data': products })
     context = {'products': Products.objects.all(), 'previous': PreviouslyViewed.objects.all().order_by('datetime')[:10]}
     return render(request, 'CaptainConsole/home.html', context)
 
 def get_product_by_id(request, id):
-    context = {'product': get_object_or_404(Products, pk=id), 'images': ProductImages.objects.all(), 'reviews': Reviews.objects.all(), 'profiles': Profile.objects.all()}
+    context = {'product': get_object_or_404(Products, pk=id), 'images': ProductImages.objects.all(),
+               'reviews': Reviews.objects.all(), 'profiles': Profile.objects.all()}
     return render(request, 'CaptainConsole/product.html', context)
 
 @login_required
@@ -62,7 +63,6 @@ def create_product(request):
     return render(request, 'CaptainConsole/create_product.html', {
         'form': form
     })
-
 
 def create_user(request):
     if request.method == 'POST':
@@ -137,3 +137,43 @@ def review(request, id):
     return render(request, 'CaptainConsole/review.html', {
         'form': ReviewCreateForm(instance=review)
     })
+
+@login_required
+def cart_add(request, id):
+    cart = Cart(request)
+    product = Products.objects.get(id=id)
+    cart.add(product=product)
+    return redirect("home")
+
+@login_required
+def item_clear(request, id):
+    cart = Cart(request)
+    product = Products.objects.get(id=id)
+    cart.remove(product)
+    return redirect("cart_detail")
+
+@login_required
+def item_increment(request, id):
+    cart = Cart(request)
+    product = Products.objects.get(id=id)
+    cart.add(product=product)
+    return redirect("cart_detail")
+
+@login_required
+def item_decrement(request, id):
+    cart = Cart(request)
+    product = Products.objects.get(id=id)
+    cart.decrement(product=product)
+    return redirect("cart_detail")
+
+@login_required
+def cart_clear(request):
+    cart = Cart(request)
+    cart.clear()
+    return redirect("cart_detail")
+
+
+@login_required
+def cart_detail(request):
+    return render(request, 'CaptainConsole/cart-detail.html')
+

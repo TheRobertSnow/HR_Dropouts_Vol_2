@@ -7,12 +7,12 @@ class Products(models.Model):
     price = models.FloatField()
     description = models.CharField(max_length=999)
     manufacturer = models.CharField(max_length=255)
-    mainImage = models.CharField(max_length=255)
+    mainImageLink = models.CharField(max_length=255)
     def __str__(self):
         return self.name
 
 class ProductImages(models.Model):
-    imageFileName = models.CharField(max_length=255)
+    imageLink = models.CharField(max_length=255)
     product = models.ForeignKey(Products, on_delete=models.CASCADE, blank=True, null=True)
 
 class Reviews(models.Model):
@@ -25,8 +25,8 @@ class Reviews(models.Model):
 
 class ShoppingCart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    productIDs = models.CharField(max_length=999)
-    productAmount = models.CharField(max_length=999)
+    productID = models.ForeignKey(Products, on_delete=models.CASCADE, blank=True, null=True)
+    productAmount = models.IntegerField()
 
 class Orders(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)

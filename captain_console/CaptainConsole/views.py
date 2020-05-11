@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from CaptainConsole.models import Products, ProductImages, Reviews, Profile, PreviouslyViewed
-from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, AddImageForm, ProfileForm, ReviewCreateForm, CartCreateForm
+from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, AddImageForm, ProfileForm, ReviewCreateForm, CartCreateForm, PreviouslyViewedForm
 from django.http import JsonResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -41,6 +41,14 @@ def home(request):
     return render(request, 'CaptainConsole/home.html', context)
 
 def get_product_by_id(request, id):
+    if request.user.is_authenticated:
+        form = PreviouslyViewedForm()
+        prod = get_object_or_404(Products, pk=id)
+        prev = form.save(commit=False)
+        prev.product = prod
+        prev.user = request.user
+        prev.datetime = timezone.now()
+        prev.save()
     context = {'product': get_object_or_404(Products, pk=id), 'images': ProductImages.objects.all(),
                'reviews': Reviews.objects.all(), 'profiles': Profile.objects.all()}
     return render(request, 'CaptainConsole/product.html', context)

@@ -2,7 +2,7 @@ from django.forms import ModelForm
 from django.forms import widgets
 from django.forms import DateTimeField
 from django import forms
-from CaptainConsole.models import Products, Reviews, ProductImages, Profile, ShoppingCart
+from CaptainConsole.models import Products, Reviews, ProductImages, Profile, ShoppingCart, PreviouslyViewed
 
 class ProductUpdateForm(ModelForm):
     class Meta:
@@ -64,3 +64,8 @@ class ProfileForm(ModelForm):
             'nickname': widgets.TextInput(attrs={'class': 'form-control'}),
             'profile_image': widgets.TextInput(attrs={'class': 'form-control'})
         }
+
+class PreviouslyViewedForm(ModelForm):
+    class Meta:
+        model = PreviouslyViewed
+        exclude = ['id', 'product', 'user', 'datetime']

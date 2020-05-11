@@ -16,6 +16,7 @@ def home(request):
             products = [{
                 'id': x.id,
                 'name': x.name,
+                'price': x.price,
                 'description': x.description,
                 'mainImage': x.mainImage
             } for x in Products.objects.filter(name__icontains=search_filter).order_by('name')]
@@ -23,6 +24,7 @@ def home(request):
             products = [{
                 'id': x.id,
                 'name': x.name,
+                'price': x.price,
                 'description': x.description,
                 'mainImage': x.mainImage
             } for x in Products.objects.filter(name__icontains=search_filter).order_by('price')]
@@ -30,6 +32,7 @@ def home(request):
             products = [{
                 'id': x.id,
                 'name': x.name,
+                'price': x.price,
                 'description': x.description,
                 'mainImage': x.mainImage
             } for x in Products.objects.filter(name__icontains=search_filter)]

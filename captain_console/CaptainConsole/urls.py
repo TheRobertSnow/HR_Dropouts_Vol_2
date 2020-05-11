@@ -21,4 +21,8 @@ urlpatterns = [
     path('cart/item_decrement/<int:id>/', views.item_decrement, name='item_decrement'),
     path('cart/cart_clear/', views.cart_clear, name='cart_clear'),
     path('cart/cart-detail/', views.cart_detail, name='cart_detail'),
+    path('order/cart_info/', views.cart_info, name='cart_info'),
+    path('order/contact_info/', views.contact_info, name='contact_info'),
+    path('order/shipping_and_payment/', views.shipping_and_payment, name='shipping_and_payment'),
+    path('order/order_review/', views.order_review, name='order_review'),
 ]

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+    <table class="stepMenu">
+        <tr>
+            <td><a href="{% url 'cart_info' %}">1. Cart</a></td>
+            <td><a href="{% url 'contact_info' %}">2. Contact Information</a></td>
+            <td><a href="{% url 'shipping_and_payment' %}">3. Shipping and Payment</a></td>
+            <td>4. Order Review</td>
+        </tr>
+    </table>
+    <table class="infoTable">
+        <tr class="infoRow">
+            <td>
+                <label><span class="text">First name</span></label>
+                <input type="text">
+            </td>
+            <td>
+                <label><span class="text">Last name</span></label>
+                <input type="text">
+            </td>
+        </tr>
+        <tr class="infoRow">
+            <td>
+                <label><span class="text">E-mail</span></label>
+                <input type="text">
+            </td>
+            <td>
+                <label><span class="text">Phone</span></label>
+                <input type="text">
+            </td>
+        </tr>
+        <tr class="infoRow">
+            <td>
+                <label><span class="text">Address</span></label>
+                <input type="text">
+            </td>
+            <td>
+                <label><span class="text">Zip/Postal code</span></label>
+                <input type="text">
+            </td>
+        </tr>
+        <tr class="infoRow">
+            <td>
+                <label><span class="text">City</span></label>
+                <input type="text">
+            </td>
+            <td>
+                <label><span class="text">Country</span></label>
+                <input type="text">
+            </td>
+        </tr>
+    </table>
+    <table class="options">
+        <tr>
+            <td><a href="{% url 'cart_info' %}">Previous Step: Cart</a></td>
+            <td>Shipping: </td>
+            <td>Total: </td>
+            <td><a href="{% url 'shipping_and_payment' %}">Next step: Shipping and Payment</a></td>
+        </tr>
+    </table>
+{% endblock %}

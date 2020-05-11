@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
     {% load cart_tag %}
+    <table class="stepMenu">
+        <tr>
+            <td><a href="{% url 'cart_detail' %}">1. Cart</a></td>
+            <td><a href="{% url 'contact_info' %}">2. Contact Information</a></td>
+            <td>3. Shipping and Payment</td>
+            <td>4. Order Review</td>
+        </tr>
+    </table>
     {% if request.session.cart|length != 0 %}
         <table class="cartTable">
             <tr class="cartRow">
@@ -23,16 +31,16 @@
                     <td>{{ value.price|multiply:value.quantity }}</td>
                 </tr>
             {% endfor %}
-            <tr class="cartRow">
-                <th></th>
-                <th></th>
-                <th></th>
-                <th>Total</th>
-                <th>XXXX</th>
-            </tr>
         </table>
-        <a href="{% url 'cart_clear' %}">Clear Cart</a>
     {% elif request.session.cart|length == 0 %}
         <p>Cart is currently empty</p>
     {% endif %}
+    <table class="options">
+        <tr>
+            <td><a href="{% url 'cart_clear' %}">Clear Cart</a></td>
+            <td>Shipping: </td>
+            <td>Total: </td>
+            <td><a href="{% url 'contact_info' %}">Next step: Contact Info</a></td>
+        </tr>
+    </table>
 {% endblock %}

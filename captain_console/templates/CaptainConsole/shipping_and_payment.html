@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+    <table class="stepMenu">
+        <tr>
+            <td><a href="{% url 'cart_info' %}">1. Cart</a></td>
+            <td><a href="{% url 'contact_info' %}">2. Contact Information</a></td>
+            <td><a href="{% url 'shipping_and_payment' %}">3. Shipping and Payment</a></td>
+            <td><a href="{% url 'order_review' %}">4. Order Review</a></td>
+        </tr>
+    </table>
+    <table class="infoTable">
+        <tr class="infoRow">
+            <td>
+                <label><span class="text">Name on card</span></label>
+                <input type="text">
+            </td>
+        </tr>
+        <tr class="infoRow">
+            <td>
+                <label for="ccn">Credit Card Number</label>
+                <input id="ccn" type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="XXXX-XXXX-XXXX-XXXX">
+            </td>
+        </tr>
+        <tr class="infoRow">
+            <td>
+                Card Expiration
+                <select name='expireMM' id='expireMM'>
+                    <option value=''>Month</option>
+                    <option value='01'>January</option>
+                    <option value='02'>February</option>
+                    <option value='03'>March</option>
+                    <option value='04'>April</option>
+                    <option value='05'>May</option>
+                    <option value='06'>June</option>
+                    <option value='07'>July</option>
+                    <option value='08'>August</option>
+                    <option value='09'>September</option>
+                    <option value='10'>October</option>
+                    <option value='11'>November</option>
+                    <option value='12'>December</option>
+                </select>
+                <select name='expireYY' id='expireYY'>
+                    <option value=''>Year</option>
+                    <option value='20'>2020</option>
+                    <option value='21'>2021</option>
+                    <option value='22'>2022</option>
+                    <option value='23'>2023</option>
+                    <option value='24'>2024</option>
+                    <option value='25'>2025</option>
+                    <option value='26'>2026</option>
+                </select>
+                <input class="inputCard" type="hidden" name="expiry" id="expiry" maxlength="4"/>
+            </td>
+        </tr>
+        <tr class="infoRow">
+            <td>
+                <label><span class="text">CVC</span></label>
+                <input type="text">
+            </td>
+        </tr>
+    </table>
+    <table class="options">
+        <tr>
+            <td><a href="{% url 'contact_info' %}">Previous Step: Contact Information</a></td>
+            <td>Shipping: </td>
+            <td>Total: </td>
+            <td><a href="{% url 'order_review' %}">Next step: Order Review</a></td>
+        </tr>
+    </table>
+{% endblock %}

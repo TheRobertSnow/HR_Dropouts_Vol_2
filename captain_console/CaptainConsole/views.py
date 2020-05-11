@@ -12,12 +12,27 @@ import datetime
 def home(request):
     if 'search_filter' in request.GET:
         search_filter = request.GET['search_filter']
-        products = [{
-            'id': x.id,
-            'name': x.name,
-            'description': x.description,
-            'mainImage': x.mainImage
-        } for x in Products.objects.filter(name__icontains=search_filter)]
+        if request.headers['addFilter'] == 'by_name':
+            products = [{
+                'id': x.id,
+                'name': x.name,
+                'description': x.description,
+                'mainImage': x.mainImage
+            } for x in Products.objects.filter(name__icontains=search_filter).order_by('name')]
+        elif request.headers['addFilter'] == 'by_price':
+            products = [{
+                'id': x.id,
+                'name': x.name,
+                'description': x.description,
+                'mainImage': x.mainImage
+            } for x in Products.objects.filter(name__icontains=search_filter).order_by('price')]
+        else:
+            products = [{
+                'id': x.id,
+                'name': x.name,
+                'description': x.description,
+                'mainImage': x.mainImage
+            } for x in Products.objects.filter(name__icontains=search_filter)]
         return JsonResponse({ 'data': products })
     context = {'products': Products.objects.all()}
     return render(request, 'CaptainConsole/home.html', context)

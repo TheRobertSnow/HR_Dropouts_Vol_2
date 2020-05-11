@@ -1,4 +1,21 @@
-/* General css */
+/*
+Line 17 - General
+Line 41 - Home Page
+    Line 73 - Navigation Header
+    Line 119 - Search Form
+Line 147 - Product Page
+    Line 161 - Product Images
+    Line 176 - Product Info
+    Line 195 - Product Buy Box
+    Line 222 - Review Container
+Line 243 - Cart Page
+Line 259 - Login Page
+Line 274 - Signup Page
+ */
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+/* General */
+/*--------------------------------------------------------------------------------------------------------------------*/
 html {
     background-color: #EBEBEB;
 }
@@ -20,8 +37,9 @@ a:hover {
     color: #222222;
     text-decoration: none;
 }
-
-/* Home Page css */
+/*--------------------------------------------------------------------------------------------------------------------*/
+/* Home Page */
+/*--------------------------------------------------------------------------------------------------------------------*/
 .homePage {
     padding: 10px;
     text-align: center;
@@ -51,94 +69,9 @@ a:hover {
     width: 100%;
     height: 15%;
 }
-
-/* Product Page css */
-.productPage {
-    background-color: white;
-    padding: 10px;
-}
-.productPage .admin-product-options {
-    width: 100%;
-}
-.productPage .product-container {
-    width: 100%;
-    overflow: auto;
-}
-/* Product Images */
-.product-container .productImageBox {
-    width: 35%;
-    float: left;
-}
-.productImageBox .product-mainImage {
-    padding: 10px;
-    width: 100%;
-}
-.productImageBox .product-images {
-    padding: 5px;
-    width: 30%;
-}
-/* Product Info */
-.product-container .productInfo {
-    text-align: left;
-    width: 40%;
-    min-height: 450px;
-    padding-top: 30px;
-    padding-left: 10px;
-    padding-right: 10px;
-    float: left;
-}
-.productInfo .product-name {
-    width: 100%;
-    padding-bottom: 30px;
-}
-.productInfo .product-description {
-    width: 100%;
-}
-/* Product Buy Box */
-.product-container .buyProduct {
-    padding-top: 160px;
-    width: 25%;
-    min-height: 450px;
-    float: left;
-}
-.buyProduct .product-price {
-    font-size: 30px;
-    font-weight: bold;
-    width: 80%;
-    margin: auto;
-    border: 2px solid #BFBFBF;
-    background-color: #EBEBEB;
-}
-.buyProduct .add-to-cart {
-    font-size: 16px;
-    font-weight: bold;
-    margin: auto;
-    margin-top: 10px;
-    padding: 5px;
-    width: 80%;
-    border: 2px solid #bfbfbf;
-    background-color: #4caf50;
-}
-/* Review Container */
-.review-container .product-review {
-    width: 40%;
-    margin: 15px;
-    box-sizing: border-box;
-    display: inline-block;
-    text-align: left;
-    border: 2px solid #BFBFBF;
-    border-radius: 5px;
-    background-color: #EBEBEB;
-    padding: 10px;
-}
-.product-review .stars {
-    width: 20px;
-}
-.product-review .product-review-title {
-    padding-top: 15px;
-    margin: 0px;
-}
+/*--------------------------------------------------------------------------------------------------------------------*/
 /* Navigation Header */
+/*--------------------------------------------------------------------------------------------------------------------*/
 #navBar {
     height: 54px;
     border-bottom: 2px solid #BFBFBF;
@@ -182,7 +115,9 @@ a:hover {
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
+/*--------------------------------------------------------------------------------------------------------------------*/
 /* Search Form */
+/*--------------------------------------------------------------------------------------------------------------------*/
 .searchForm {
     width: 100%;
     overflow: auto;
@@ -208,6 +143,105 @@ a:hover {
     background-size: 100% 100%;
     padding: 0px;
 }
+/*--------------------------------------------------------------------------------------------------------------------*/
+/* Product Page */
+/*--------------------------------------------------------------------------------------------------------------------*/
+.productPage {
+    background-color: white;
+    padding: 10px;
+}
+.productPage .admin-product-options {
+    width: 100%;
+}
+.productPage .product-container {
+    width: 100%;
+    overflow: auto;
+}
+/*--------------------------------------------------------------------------------------------------------------------*/
+/* Product Images */
+/*--------------------------------------------------------------------------------------------------------------------*/
+.product-container .productImageBox {
+    width: 35%;
+    float: left;
+}
+.productImageBox .product-mainImage {
+    padding: 10px;
+    width: 100%;
+}
+.productImageBox .product-images {
+    padding: 5px;
+    width: 30%;
+}
+/*--------------------------------------------------------------------------------------------------------------------*/
+/* Product Info */
+/*--------------------------------------------------------------------------------------------------------------------*/
+.product-container .productInfo {
+    text-align: left;
+    width: 40%;
+    min-height: 450px;
+    padding-top: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    float: left;
+}
+.productInfo .product-name {
+    width: 100%;
+    padding-bottom: 30px;
+}
+.productInfo .product-description {
+    width: 100%;
+}
+/*--------------------------------------------------------------------------------------------------------------------*/
+/* Product Buy Box */
+/*--------------------------------------------------------------------------------------------------------------------*/
+.product-container .buyProduct {
+    padding-top: 160px;
+    width: 25%;
+    min-height: 450px;
+    float: left;
+}
+.buyProduct .product-price {
+    font-size: 30px;
+    font-weight: bold;
+    width: 80%;
+    margin: auto;
+    border: 2px solid #BFBFBF;
+    background-color: #EBEBEB;
+}
+.buyProduct .add-to-cart {
+    font-size: 16px;
+    font-weight: bold;
+    margin: auto;
+    margin-top: 10px;
+    padding: 5px;
+    width: 80%;
+    border: 2px solid #bfbfbf;
+    background-color: #4caf50;
+}
+/*--------------------------------------------------------------------------------------------------------------------*/
+/* Review Container */
+/*--------------------------------------------------------------------------------------------------------------------*/
+.review-container .product-review {
+    width: 40%;
+    margin: 15px;
+    box-sizing: border-box;
+    display: inline-block;
+    text-align: left;
+    border: 2px solid #BFBFBF;
+    border-radius: 5px;
+    background-color: #EBEBEB;
+    padding: 10px;
+}
+.product-review .stars {
+    width: 20px;
+}
+.product-review .product-review-title {
+    padding-top: 15px;
+    margin: 0px;
+}
+/*--------------------------------------------------------------------------------------------------------------------*/
+/* Cart Page */
+/*--------------------------------------------------------------------------------------------------------------------*/
 .cartTable {
     width: 70%;
     padding: 10px;
@@ -221,6 +255,42 @@ a:hover {
 .cartRow td img {
     width: 75%;
 }
+/*--------------------------------------------------------------------------------------------------------------------*/
+/* Signup Page */
+/*--------------------------------------------------------------------------------------------------------------------*/
+.signupForm table {
+    text-align: left;
+    margin: auto;
+    padding: 20px;
+}
+.signupForm table td {
+    padding: 10px;
+}
+.signup ul {
+    position: fixed;
+    margin-left: 200px;
+}
+/*--------------------------------------------------------------------------------------------------------------------*/
+/* Login Page */
+/*--------------------------------------------------------------------------------------------------------------------*/
+.loginForm {
+    text-align: left;
+    padding-bottom: 10px;
+}
+.loginForm table{
+    margin: auto;
+}
+.loginForm table th {
+    padding: 10px;
+}
+.login ul {
+    position: fixed;
+    margin-left: 300px;
+    margin-top: 10px;
+}
+
+
+
 .sidenav {
     width: 10%;
     position: fixed;
@@ -231,7 +301,6 @@ a:hover {
     overflow-x: hidden;
     padding: 8px 0;
 }
-
 .sidenav a {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
@@ -239,15 +308,12 @@ a:hover {
     color: #2196F3;
     display: block;
 }
-
 .sidenav a:hover {
     color: #064579;
 }
-
 .aside-container{
 
 }
-
 .aside-img{
     width: 30%;
     height: auto;

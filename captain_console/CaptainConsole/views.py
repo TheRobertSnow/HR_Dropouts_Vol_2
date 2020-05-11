@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from CaptainConsole.models import Products, ProductImages, Reviews, Profile
-from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, AddImageForm, ProfileForm, ReviewCreateForm
+from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, AddImageForm, ProfileForm, ReviewCreateForm, CustomUserCreationForm
 from django.http import JsonResponse
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from cart.cart import Cart
+from django.contrib import messages
+
 
 # Create your views here.
 def home(request):
@@ -66,14 +67,13 @@ def create_product(request):
 
 def create_user(request):
     if request.method == 'POST':
-        form = UserCreationForm(data=request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('login')
-    return render(request, 'CaptainConsole/signup.html', {
-        'form': UserCreationForm()
-    })
-
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'CaptainConsole/signup.html', {'form': form})
 
 @login_required
 def delete_product(request, id):

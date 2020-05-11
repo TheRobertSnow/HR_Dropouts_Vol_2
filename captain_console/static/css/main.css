@@ -208,7 +208,6 @@ a:hover {
     background-size: 100% 100%;
     padding: 0px;
 }
-
 .cartTable {
     width: 70%;
     padding: 10px;
@@ -221,4 +220,35 @@ a:hover {
 }
 .cartRow td img {
     width: 75%;
+}
+.sidenav {
+    width: 10%;
+    position: fixed;
+    z-index: 1;
+    top: 20px;
+    left: 10px;
+    background: #eee;
+    overflow-x: hidden;
+    padding: 8px 0;
+}
+
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 12pt;
+    color: #2196F3;
+    display: block;
+}
+
+.sidenav a:hover {
+    color: #064579;
+}
+
+.aside-container{
+
+}
+
+.aside-img{
+    width: 30%;
+    height: auto;
 }

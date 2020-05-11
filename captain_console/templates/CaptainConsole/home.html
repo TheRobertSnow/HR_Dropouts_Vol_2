@@ -1,8 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
     <div>
-        <input id="search-box" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button id="search-btn" class="searchButton" type="submit"></button>
+        <form method="get">
+            <input id="search-box" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <label>Filter Options</label>
+            <select name="options", id="add_opt">
+                <option value="none">---None---</option>
+                <option value="by_name">By Name</option>
+                <option value="by_price">By Price</option>
+            </select>
+            <button id="search-btn" class="searchButton" type="submit"></button>
+        </form>
     </div>
     <div class="homePage">
         {% for product in products %}

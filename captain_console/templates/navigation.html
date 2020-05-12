@@ -12,9 +12,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                 </li>
+                {% if user.is_staff %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'create_product' %}">Add Product</a>
                 </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'search_history' %}">Search History</a>
                 </li>
@@ -30,7 +32,7 @@
         {% if user.is_authenticated %}
             <a class="profile-image-container" href="{% url 'profile' %}">
                 {% if user.profile.nickname == "" %}
-                    <p>Profile</p>
+                    <p>{{ user.username }}</p>
                 {% elif user.profile.nickname != "" %}
                     <p>{{ user.profile.nickname }}</p>
                 {% endif %}

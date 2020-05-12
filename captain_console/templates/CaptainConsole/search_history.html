@@ -1,3 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
+    {% if messages %}
+    <ul class="messages">
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+    {% else %}
+        You have no search history
+  {% endif %}
 {% endblock %}

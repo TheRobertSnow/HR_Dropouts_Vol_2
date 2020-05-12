@@ -36,7 +36,6 @@ class Orders(models.Model):
 
 class SearchHistory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    keywordIDs = models.CharField(max_length=999)
     searchQuery = models.CharField(max_length=255)
     datetime = models.DateTimeField()
 

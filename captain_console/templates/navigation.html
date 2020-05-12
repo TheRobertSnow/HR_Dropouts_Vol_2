@@ -23,7 +23,7 @@
         </ul>
         {% if user.is_authenticated %}
             <div class="dropdown">
-                <a class="profile-image-container btn btn-primary dropdown-toggle" href="{% url 'profile' %}" data-toggle="dropdown">
+                <a class="profile-image-container btn btn-primary dropdown-toggle" data-toggle="dropdown">
                     {% if user.profile.nickname == "" %}
                         <p>{{ user.username }}</p>
                     {% elif user.profile.nickname != "" %}
@@ -36,7 +36,10 @@
                     {% endif %}
                 </a>
                 <ul class="dropdown-menu">
-                    <li class="">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'search_history' %}">Search History</a>
                     </li>
                     {% if user.is_staff %}

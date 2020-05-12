@@ -14,10 +14,11 @@ def home(request):
         search_filter = request.GET['search_filter']
         if request.user.is_authenticated:
             form = SearchHistoryForm()
-            form.user = request.user
-            form.searchQuery = search_filter
-            form.datetime = timezone.now()
-            form.save()
+            search = form.save(commit=False)
+            search.user = request.user
+            search.searchQuery = search_filter
+            search.datetime = timezone.now()
+            search.save()
 
         if request.headers['addFilter'] == 'by_name':
             products = [{
@@ -156,12 +157,10 @@ def review(request, id):
 @login_required
 def search_history(request):
     userID = request.user.id
-    my_history = ''
     for x in SearchHistory.objects.all():
         if x.user_id == userID:
-            my_history += x.searchQuery
-    messages.add_message(request, messages.INFO, my_history)
-
+            my_history = 'You searched for: ' + x.searchQuery + ': ' + str(x.datetime)
+            messages.add_message(request, messages.INFO, my_history)
     return render(request,'CaptainConsole/search_history.html')
 
 

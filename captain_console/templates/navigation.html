@@ -16,6 +16,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'create_product' %}">Add Product</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'delete_search_history' %}">Delete Search History</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'delete_previously_viewed' %}">Delete Previously Viewed</a>
+                </li>
                 {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'search_history' %}">Search History</a>

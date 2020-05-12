@@ -214,3 +214,13 @@ def shipping_and_payment(request):
 def order_review(request):
     return render(request, 'CaptainConsole/order_review.html')
 
+@login_required
+def delete_search_history(request):
+    SearchHistory.objects.all().delete()
+    return redirect('home')
+
+@login_required
+def delete_previously_viewed(request):
+    PreviouslyViewed.objects.all().delete()
+    return redirect('home')
+

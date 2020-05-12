@@ -3,11 +3,27 @@
     <div>
         <form method="get">
             <input id="search-box" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <label>Filter Options</label>
+            <label>Order Options</label>
             <select name="options", id="add_opt">
-                <option value="none">---None---</option>
+                <option value="none">----------</option>
                 <option value="by_name">By Name</option>
                 <option value="by_price">By Price</option>
+            </select>
+            <label>Category Options</label>
+            <select name="options", id="add_man">
+                <option value="none">----------</option>
+                <option value="Sega">Sega</option>
+                <option value="Gameboy">Game Boy</option>
+                <option value="PlayStation">PlayStation</option>
+                <option value="Nintendo">Nintendo</option>
+                <option value="Xbox">Xbox</option>
+            </select>
+            <label>Type Options</label>
+            <select name="options", id="add_type">
+                <option value="none">----------</option>
+                <option value="console">Consoles</option>
+                <option value="game">Games</option>
+                <option value="other">Other</option>
             </select>
             <button id="search-btn" class="searchButton" type="submit"></button>
         </form>

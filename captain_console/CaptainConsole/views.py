@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from CaptainConsole.models import Products, ProductImages, Reviews, Profile, PreviouslyViewed
-from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, AddImageForm, ProfileForm, ReviewCreateForm, CustomUserCreationForm, PreviouslyViewedForm
+from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, AddImageForm, ProfileForm, ReviewCreateForm, CustomUserCreationForm, PreviouslyViewedForm, SearchHistoryForm
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
@@ -11,6 +11,13 @@ from cart.cart import Cart
 def home(request):
     if 'search_filter' in request.GET:
         search_filter = request.GET['search_filter']
+        if request.user.is_authenticated:
+            form = SearchHistoryForm()
+            form.user = request.user
+            form.searchQuery = search_filter
+            form.datetime = timezone.now()
+            form.save()
+
         if request.headers['addFilter'] == 'by_name':
             products = [{
                 'id': x.id,
@@ -193,3 +200,6 @@ def shipping_and_payment(request):
 
 def order_review(request):
     return render(request, 'CaptainConsole/order_review.html')
+
+def search_history(request):
+    return render(request, 'CaptainConsole/search_history.html')

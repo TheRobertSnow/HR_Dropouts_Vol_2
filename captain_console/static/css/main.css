@@ -83,7 +83,21 @@ a:hover {
 #navBar {
     height: 60px;
     border-bottom: 2px solid #BFBFBF;
+    background-color: lightblue;
+    animation-name: example;
+    animation-duration: 4s;
+    animation-iteration-count: 10;
+
 }
+
+@keyframes example {
+    0%   {background-color: beige;}
+    25%  {background-color: lightblue;}
+    50%  {background-color: aqua;}
+    75%  {background-color: lightblue}
+    100% {background-color: beige;}
+}
+
 #navBar ul > li + li {
     border-left: 2px solid #BFBFBF;
 }

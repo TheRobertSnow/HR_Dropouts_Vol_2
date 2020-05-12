@@ -1,19 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
-    <table class="stepMenu">
-        <tr>
-            <td><a href="{% url 'cart_info' %}">1. Cart</a></td>
-            <td><a href="{% url 'contact_info' %}">2. Contact Information</a></td>
-            <td><a href="{% url 'shipping_and_payment' %}">3. Shipping and Payment</a></td>
-            <td><a href="{% url 'order_review' %}">4. Order Review</a></td>
-        </tr>
-    </table>
-    <table class="options">
-        <tr>
-            <td><a href="{% url 'shipping_and_payment' %}">Previous Step: Shipping and Payment</a></td>
-            <td>Shipping: </td>
-            <td>Total: </td>
-            <td><a href="{% url 'order_review' %}">Place Order</a></td>
-        </tr>
-    </table>
+    <div class="cart-page">
+        <nav class="navbar navbar-expand-lg" id="stepMenu">
+            <ul class="navbar-nav mr-auto">
+                <li><a href="{% url 'cart_info' %}">1. Cart</a></li>
+                <li><a href="{% url 'contact_info' %}">2. Contact Information</a></li>
+                <li><a href="{% url 'shipping_and_payment' %}">3. Shipping and Payment</a></li>
+                <li><a href="{% url 'order_review' %}">4. Order Review</a></li>
+            </ul>
+        </nav>
+        <div class="infoFormContainer">
+            <form class="infoForm">
+            </form>
+        </div>
+        <nav class="navbar navbar-expand-lg" id="stepMenu">
+            <ul class="navbar-nav mr-auto">
+                <li><a href="{% url 'shipping_and_payment' %}">Previous Step:<br>Shipping and Payment</a></li>
+                <li>Shipping: </li>
+                <li>Total: </li>
+                <li><a href="{% url 'order_review' %}">Next Step:<br>Place Order</a></li>
+            </ul>
+        </nav>
+    </div>
 {% endblock %}

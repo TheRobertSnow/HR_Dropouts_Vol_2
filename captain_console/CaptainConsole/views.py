@@ -157,11 +157,11 @@ def review(request, id):
 @login_required
 def search_history(request):
     userID = request.user.id
+    searches = []
     for x in SearchHistory.objects.all():
         if x.user_id == userID:
-            my_history = 'You searched for: ' + x.searchQuery + ': ' + str(x.datetime)
-            messages.add_message(request, messages.INFO, my_history)
-    return render(request,'CaptainConsole/search_history.html')
+            searches.append(x)
+    return render(request, 'CaptainConsole/search_history.html', {'searches': searches})
 
 
 @login_required

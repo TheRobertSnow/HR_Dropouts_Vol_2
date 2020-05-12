@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
-    {% if messages %}
-    <ul class="messages">
-    {% for message in messages %}
-      <h6><li>{{ message }}</li></h6>
-    {% endfor %}
-    </ul>
-    {% else %}
-        You have no search history
-  {% endif %}
+    <table class="searchHistory">
+        <tr>
+            <th>Search Query</th>
+            <th>DateTime</th>
+        </tr>
+        {% for search in searches %}
+        <tr>
+            <td>{{ search.searchQuery }}</td>
+            <td>{{ search.datetime }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 {% endblock %}

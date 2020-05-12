@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django.forms import widgets
 from django import forms
-from CaptainConsole.models import Products, Reviews, ProductImages, Profile, PreviouslyViewed
+from CaptainConsole.models import Products, Reviews, ProductImages, Profile, PreviouslyViewed, SearchHistory
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
@@ -99,3 +99,9 @@ class PreviouslyViewedForm(ModelForm):
     class Meta:
         model = PreviouslyViewed
         exclude = ['id', 'product', 'user', 'datetime']
+
+
+class SearchHistoryForm(ModelForm):
+    class Meta:
+        model = SearchHistory
+        exclude = ['id', 'user', 'searchQuery', 'datetime']

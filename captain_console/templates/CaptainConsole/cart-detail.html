@@ -1,46 +1,48 @@
 {% extends 'base.html' %}
 {% block content %}
     {% load cart_tag %}
-    <table class="stepMenu">
-        <tr>
-            <td><a href="{% url 'cart_detail' %}">1. Cart</a></td>
-            <td><a href="{% url 'contact_info' %}">2. Contact Information</a></td>
-            <td>3. Shipping and Payment</td>
-            <td>4. Order Review</td>
-        </tr>
-    </table>
-    {% if request.session.cart|length != 0 %}
-        <table class="cartTable">
-            <tr class="cartRow">
-                <th></th>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Remove</th>
-                <th>Price</th>
-            </tr>
-            {% for key,value in request.session.cart.items %}
+    <div class="cart-page">
+        <nav class="navbar navbar-expand-lg" id="stepMenu">
+            <ul class="navbar-nav mr-auto">
+                <li><a href="{% url 'cart_info' %}">1. Cart</a></li>
+                <li>2. Contact Information</li>
+                <li>3. Shipping and Payment</li>
+                <li>4. Order Review</li>
+            </ul>
+        </nav>
+        {% if request.session.cart|length != 0 %}
+            <table class="cartTable">
                 <tr class="cartRow">
-                    <td><img src="{{ value.mainImageLink }}" alt=""/></td>
-                    <td>{{value.name}}</td>
-                    <td>
-                        <a href="{% url 'item_decrement' value.product_id %}">-</a>
-                        {{value.quantity}}
-                        <a href="{% url 'item_increment' value.product_id %}">+</a>
-                    </td>
-                    <td><a href="{% url 'item_clear' value.product_id %}">X</a></td>
-                    <td>{{ value.price|multiply:value.quantity }}</td>
+                    <th></th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Remove</th>
+                    <th>Price</th>
                 </tr>
-            {% endfor %}
-        </table>
-    {% elif request.session.cart|length == 0 %}
-        <p>Cart is currently empty</p>
-    {% endif %}
-    <table class="options">
-        <tr>
-            <td><a href="{% url 'cart_clear' %}">Clear Cart</a></td>
-            <td>Shipping: </td>
-            <td>Total: </td>
-            <td><a href="{% url 'contact_info' %}">Next step: Contact Info</a></td>
-        </tr>
-    </table>
+                {% for key,value in request.session.cart.items %}
+                    <tr class="cartRow">
+                        <td><img src="{{ value.mainImageLink }}" alt=""/></td>
+                        <td>{{value.name}}</td>
+                        <td>
+                            <a href="{% url 'item_decrement' value.product_id %}">-</a>
+                            {{value.quantity}}
+                            <a href="{% url 'item_increment' value.product_id %}">+</a>
+                        </td>
+                        <td><a href="{% url 'item_clear' value.product_id %}">X</a></td>
+                        <td>{{ value.price|multiply:value.quantity }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% elif request.session.cart|length == 0 %}
+            <p>Cart is currently empty</p>
+        {% endif %}
+        <nav class="navbar navbar-expand-lg" id="stepMenu">
+            <ul class="navbar-nav mr-auto">
+                <li><a href="{% url 'cart_clear' %}">Clear Cart</a></li>
+                <li>Shipping: </li>
+                <li>Total: </li>
+                <li><a href="{% url 'contact_info' %}">Next Step:<br>Contact Info</a></li>
+            </ul>
+        </nav>
+    </div>
 {% endblock %}

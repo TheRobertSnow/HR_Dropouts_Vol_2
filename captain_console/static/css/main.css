@@ -25,6 +25,9 @@ body {
     margin: auto;
     border: 2px solid #BFBFBF;
 }
+.main-body {
+    margin: 15px;
+}
 a:link {
     color: #2196F3;
     text-decoration: none;
@@ -252,35 +255,68 @@ a:hover {
 /* Cart Page */
 /*--------------------------------------------------------------------------------------------------------------------*/
 .cartTable {
-    width: 70%;
-    padding: 10px;
-    margin: auto;
+    margin: 10px;
     font-size: 20px;
+    border-top: 2px solid #BFBFBF;
+    border-bottom: 2px solid #BFBFBF;
 }
 .cartRow td, .cartRow th{
     width: 20%;
-    border: 2px solid #BFBFBF;
+    border: 1px solid #BFBFBF;
 }
 .cartRow td img {
     width: 75%;
 }
-.infoTable {
-    text-align: right;
+#stepMenu ul > li + li {
+    border-left: 2px solid #BFBFBF;
+}
+#stepMenu ul {
+    width: 100%;
     margin: auto;
+    padding: 0;
+    list-style-type: none;
 }
-.infoTable td {
-    padding: 10px;
-}
-.stepMenu, .options {
-    margin: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 70%;
-}
-.stepMenu td, .options td {
+#stepMenu li {
+    display: inline-block;
     width: 25%;
+    padding: 8px;
+}
+.cart-page {
+    margin: auto;
+    width: 70%;
     border: 2px solid #BFBFBF;
+    border-radius: 15px;
+}
+.infoForm .row {
+    margin: auto;
+    text-align: left;
+    border-top: 2px solid #BFBFBF;
+    border-bottom: 2px solid #BFBFBF;
+}
+.infoForm input[type=text] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+.infoForm label {
+    display: block;
+}
+.infoForm .col-50 {
+    width: 50%;
     padding: 10px;
+}
+.infoForm .col-100 {
+    width: 100%;
+    padding: 10px;
+}
+.infoForm .col-33 {
+    width: 33.3%;
+    padding: 10px;
+}
+.icon-container {
+  padding: 7px 0;
+  font-size: 24px;
 }
 /*--------------------------------------------------------------------------------------------------------------------*/
 /* Signup Page */

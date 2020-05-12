@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from CaptainConsole.models import Products, ProductImages, Reviews, Profile, PreviouslyViewed, SearchHistory
@@ -152,6 +153,17 @@ def review(request, id):
         'form': ReviewCreateForm(instance=review)
     })
 
+
+@login_required
+def search_history(request):
+    userID = request.user.id
+    for x in SearchHistory.objects.all():
+        if x.user_id == userID:
+            my_history = 'You searched for: ' + x.searchQuery + ': ' + str(x.datetime)
+            messages.add_message(request, messages.INFO, my_history)
+    return render(request,'CaptainConsole/search_history.html')
+
+
 @login_required
 def cart_add(request, id):
     cart = Cart(request)
@@ -202,9 +214,3 @@ def shipping_and_payment(request):
 def order_review(request):
     return render(request, 'CaptainConsole/order_review.html')
 
-@login_required
-def search_history(request):
-    context = {
-        'searchHistory': SearchHistory.objects.filter(user=request.user).order_by('-datetime')
-    }
-    return render(request, 'CaptainConsole/search_history.html', context)

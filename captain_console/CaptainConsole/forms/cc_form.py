@@ -100,6 +100,7 @@ class PreviouslyViewedForm(ModelForm):
         model = PreviouslyViewed
         exclude = ['id', 'product', 'user', 'datetime']
 
+
 class SearchHistoryForm(ModelForm):
     class Meta:
         model = SearchHistory

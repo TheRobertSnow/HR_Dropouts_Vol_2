@@ -30,7 +30,7 @@ a:link {
     text-decoration: none;
 }
 a:visited {
-    color: 2196F3;
+    color: #2196F3;
     text-decoration: none;
 }
 a:hover {
@@ -73,7 +73,7 @@ a:hover {
 /* Navigation Header */
 /*--------------------------------------------------------------------------------------------------------------------*/
 #navBar {
-    height: 54px;
+    height: 60px;
     border-bottom: 2px solid #BFBFBF;
 }
 #navBar ul > li + li {
@@ -92,23 +92,24 @@ a:hover {
     margin: 0px;
 }
 .cart-image {
-    height: 48px;
-    width: 48px;
+    height: 38px;
+    width: 38px;
     border: 2px solid #BFBFBF;
     border-radius: 50%;
 }
 .profile-image-container {
+    background-color: white;
     padding-left: 15px;
 }
 .profile-image-container p {
     display: inline-block;
-    border-right: 2px solid #bfbfbf;
+    border-right: 1px solid #bfbfbf;
     padding: 5px;
     margin: 0px;
 }
 .profile-image {
-    height: 48px;
-    width: 48px;
+    height: 38px;
+    width: 38px;
     border: 2px solid #BFBFBF;
     border-radius: 50%;
     background-image: url('../images/genericUser.jpg');

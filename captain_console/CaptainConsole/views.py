@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
-from CaptainConsole.models import Products, ProductImages, Reviews, Profile, PreviouslyViewed
+from CaptainConsole.models import Products, ProductImages, Reviews, Profile, PreviouslyViewed, SearchHistory
 from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, AddImageForm, ProfileForm, ReviewCreateForm, CustomUserCreationForm, PreviouslyViewedForm, SearchHistoryForm
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
@@ -13,10 +13,11 @@ def home(request):
         search_filter = request.GET['search_filter']
         if request.user.is_authenticated:
             form = SearchHistoryForm()
-            form.user = request.user
-            form.searchQuery = search_filter
-            form.datetime = timezone.now()
-            form.save()
+            search = form.save(commit=False)
+            search.user = request.user
+            search.searchQuery = search_filter
+            search.datetime = timezone.now()
+            search.save()
 
         if request.headers['addFilter'] == 'by_name':
             products = [{
@@ -201,5 +202,9 @@ def shipping_and_payment(request):
 def order_review(request):
     return render(request, 'CaptainConsole/order_review.html')
 
+@login_required
 def search_history(request):
-    return render(request, 'CaptainConsole/search_history.html')
+    context = {
+        'searchHistory': SearchHistory.objects.filter(user=request.user).order_by('-datetime')
+    }
+    return render(request, 'CaptainConsole/search_history.html', context)

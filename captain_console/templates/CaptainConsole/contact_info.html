@@ -10,7 +10,8 @@
             </ul>
         </nav>
         <div class="infoFormContainer">
-            <form class="infoForm">
+            <form class="infoForm" action="{% url 'shipping_and_payment' %}" method="post">
+                {% csrf_token %}
                 <div class="row">
                     <div class="col-100">
                         <label for="fname"><i class="fa fa-user"></i> Full Name</label>
@@ -44,15 +45,15 @@
                         <label><input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing</label>
                     </div>
                 </div>
+                <nav class="navbar navbar-expand-lg" id="stepMenu">
+                    <ul class="navbar-nav mr-auto">
+                        <li><a href="{% url 'cart_info' %}">Previous Step:<br>Cart</a></li>
+                        <li>Shipping: </li>
+                        <li>Total: </li>
+                        <li><input type="submit" value="Next Step" class="btn btn-primary pull-right"/></li>
+                    </ul>
+                </nav>
             </form>
         </div>
-        <nav class="navbar navbar-expand-lg" id="stepMenu">
-            <ul class="navbar-nav mr-auto">
-                <li><a href="{% url 'cart_info' %}">Previous Step:<br>Cart</a></li>
-                <li>Shipping: </li>
-                <li>Total: </li>
-                <li><a href="{% url 'shipping_and_payment' %}">Next Step:<br>Shipping and Payment</a></li>
-            </ul>
-        </nav>
     </div>
 {% endblock %}

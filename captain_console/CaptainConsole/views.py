@@ -19,7 +19,7 @@ def home(request):
             search.searchQuery = search_filter
             search.datetime = timezone.now()
             search.save()
-        man = request.headers['addManufacturer']
+        ty = request.headers['addType']
         cat = request.headers['addCategory']
         order = request.headers['addFilter']
         products = []
@@ -32,6 +32,7 @@ def home(request):
                 'manufacturer': x.manufacturer,
                 'category': x.category,
                 'description': x.description,
+                'type': x.type,
                 'mainImageLink': x.mainImageLink
             } for x in Products.objects.filter(name__icontains=search_filter).order_by('name')]
         elif order == 'by_price':
@@ -42,6 +43,7 @@ def home(request):
                 'manufacturer': x.manufacturer,
                 'category': x.category,
                 'description': x.description,
+                'type': x.type,
                 'mainImageLink': x.mainImageLink
             } for x in Products.objects.filter(name__icontains=search_filter).order_by('price')]
         else:
@@ -52,16 +54,17 @@ def home(request):
                 'manufacturer': x.manufacturer,
                 'category': x.category,
                 'description': x.description,
+                'type': x.type,
                 'mainImageLink': x.mainImageLink
             } for x in Products.objects.filter(name__icontains=search_filter)]
 
         for product in productdata:
             add_to_list = True
-            if man != 'none':
-                if product['manufacturer'] != man:
-                    add_to_list = False
             if cat != 'none':
                 if product['category'] != cat:
+                    add_to_list = False
+            if ty != 'none':
+                if product['type'] != ty:
                     add_to_list = False
             if add_to_list:
                 products.append(product)

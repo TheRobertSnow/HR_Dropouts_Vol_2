@@ -259,6 +259,31 @@ def order_review(request):
         'payment': PaymentInfoForm(instance=paymentinfo),
         'contact': ContactInfoForm(instance=contactinfo)})
 
+def save_order(request):
+    contactinfo = ContactInfo.objects.filter(user=request.user).first()
+    paymentinfo = PaymentInfo.objects.filter(user=request.user).first()
+    # 'fullname', 'email', 'phone', 'address', 'city', 'zip', 'country'
+    # 'nameoncard', 'creditcardnumber', 'expirationdate', 'cvv', 'additionalinfo', 'price', 'orderitems'
+    form = OrderForm()
+    order = form.save(commit=False)
+    order.user = request.user
+    order.fullname = contactinfo.fullname
+    order.email = contactinfo.email
+    order.phone = contactinfo.phone
+    order.address = contactinfo.address
+    order.city = contactinfo.city
+    order.zip = contactinfo.zip
+    order.country = contactinfo.country
+    order.nameoncard = paymentinfo.nameoncard
+    order.creditcardnumber = paymentinfo.creditcardnumber
+    order.expirationdate = paymentinfo.expirationdate
+    order.cvv = paymentinfo.cvv
+    order.additionalinfo = "paymentinfo.additionalinfo"
+    order.price = 34
+    order.orderitems = "paymentinfo.orderitems"
+    order.save()
+    return redirect('home')
+
 @login_required
 def delete_search_history(request):
     SearchHistory.objects.all().delete()

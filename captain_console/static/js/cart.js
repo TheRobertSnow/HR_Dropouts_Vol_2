@@ -6,5 +6,5 @@
         total += parseFloat(temp);
     }
     var newstring = document.getElementById('total')
-    newstring.innerText += total;
+    newstring.innerText += total.toFixed(2);
 })();

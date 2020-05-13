@@ -30,7 +30,7 @@
                                 <a href="{% url 'item_increment' value.product_id %}">+</a>
                             </td>
                             <td><a href="{% url 'item_clear' value.product_id %}">X</a></td>
-                            <td>$ {{ value.price|multiply:value.quantity }}</td>
+                            <td>$ {{ value.price|multiply:value.quantity|floatformat:2 }}</td>
                         </tr>
                     {% endfor %}
                 </table>

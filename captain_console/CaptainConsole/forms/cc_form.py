@@ -4,6 +4,7 @@ from django import forms
 from CaptainConsole.models import Products, Reviews, ProductImages, Profile, PreviouslyViewed, SearchHistory, ContactInfo, PaymentInfo
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django_countries.widgets import CountrySelectWidget
 
 class ProductUpdateForm(ModelForm):
     class Meta:
@@ -64,6 +65,7 @@ class ContactInfoForm(ModelForm):
         model = ContactInfo
         exclude = ['user']
         fields = {'fullname', 'email', 'phone', 'address', 'city', 'zip', 'country'}
+        widgets = {'country': CountrySelectWidget()}
 
 class PaymentInfoForm(ModelForm):
     class Meta:

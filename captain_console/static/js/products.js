@@ -3,11 +3,15 @@ $(document).ready(function () {
         e.preventDefault();
         var searchText = $('#search-box').val();
         var add_options = $('#add_opt').val();
+        var add_cat = $('#add_cat').val();
+        var add_type = $('#add_type').val();
         $.ajax( {
             url: '/?search_filter=' + searchText,
             type: 'GET',
             headers: {
                 'addFilter': add_options,
+                'addType': add_type,
+                'addCategory': add_cat,
             },
             success: function(resp) {
                 var newHtml = resp.data.map(d => {

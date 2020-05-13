@@ -19,31 +19,56 @@ def home(request):
             search.searchQuery = search_filter
             search.datetime = timezone.now()
             search.save()
+        ty = request.headers['addType']
+        cat = request.headers['addCategory']
+        order = request.headers['addFilter']
+        products = []
 
-        if request.headers['addFilter'] == 'by_name':
-            products = [{
+        if order == 'by_name':
+            productdata = [{
                 'id': x.id,
                 'name': x.name,
                 'price': x.price,
+                'manufacturer': x.manufacturer,
+                'category': x.category,
                 'description': x.description,
+                'type': x.type,
                 'mainImageLink': x.mainImageLink
             } for x in Products.objects.filter(name__icontains=search_filter).order_by('name')]
-        elif request.headers['addFilter'] == 'by_price':
-            products = [{
+        elif order == 'by_price':
+            productdata = [{
                 'id': x.id,
                 'name': x.name,
                 'price': x.price,
+                'manufacturer': x.manufacturer,
+                'category': x.category,
                 'description': x.description,
+                'type': x.type,
                 'mainImageLink': x.mainImageLink
             } for x in Products.objects.filter(name__icontains=search_filter).order_by('price')]
         else:
-            products = [{
+            productdata = [{
                 'id': x.id,
                 'name': x.name,
                 'price': x.price,
+                'manufacturer': x.manufacturer,
+                'category': x.category,
                 'description': x.description,
+                'type': x.type,
                 'mainImageLink': x.mainImageLink
             } for x in Products.objects.filter(name__icontains=search_filter)]
+
+        for product in productdata:
+            add_to_list = True
+            if cat != 'none':
+                if product['category'] != cat:
+                    add_to_list = False
+            if ty != 'none':
+                if product['type'] != ty:
+                    add_to_list = False
+            if add_to_list:
+                products.append(product)
+
         return JsonResponse({ 'data': products })
     if request.user.is_authenticated:
         context = {'products': Products.objects.all(),

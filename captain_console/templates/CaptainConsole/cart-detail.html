@@ -41,6 +41,11 @@
                 <li><a href="{% url 'cart_clear' %}">Clear Cart</a></li>
                 <li>Shipping: </li>
                 <li>Total: </li>
+                {% for key,value in request.session.cart.items %}
+                    <tr class="cartRow">
+                        <p style="clear:both; margin-top: 8px; margin-left: -60px" >{{ value.price }}.kr<p/>
+                    </tr>
+                {% endfor %}
                 <li><a href="{% url 'contact_info' %}">Next Step:<br>Contact Info</a></li>
             </ul>
         </nav>

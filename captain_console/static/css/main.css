@@ -94,11 +94,11 @@ a:hover {
 }
 
 @keyframes example {
-    0%   {background-color: beige;}
+    0%   {background-color: lightgrey;}
     25%  {background-color: lightblue;}
-    50%  {background-color: aqua;}
+    50%  {background-color: #7da6c8;}
     75%  {background-color: lightblue}
-    100% {background-color: beige;}
+    100% {background-color: lightgrey;}
 }
 
 #navBar ul > li + li {

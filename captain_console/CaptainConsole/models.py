@@ -25,6 +25,23 @@ class Reviews(models.Model):
     reviewText = models.CharField(max_length=999)
     datetime = models.DateTimeField()
 
+class ContactInfo(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    fullname = models.CharField(max_length=50)
+    email = models.EmailField(max_length=50)
+    phone = models.IntegerField()
+    address = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    zip = models.CharField(max_length=6)
+    country = models.CharField(max_length=50)
+
+class PaymentInfo(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    nameoncard = models.CharField(max_length=50)
+    creditcardnumber = models.CharField(max_length=16)
+    expirationdate = models.CharField(max_length=50)
+    cvv = models.IntegerField()
+
 class Orders(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length=255)

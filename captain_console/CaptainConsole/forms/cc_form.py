@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django.forms import widgets
 from django import forms
-from CaptainConsole.models import Products, Reviews, ProductImages, Profile, PreviouslyViewed, SearchHistory
+from CaptainConsole.models import Products, Reviews, ProductImages, Profile, PreviouslyViewed, SearchHistory, ContactInfo, PaymentInfo
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
@@ -58,6 +58,18 @@ class ProfileForm(ModelForm):
             'nickname': widgets.TextInput(attrs={'class': 'form-control'}),
             'profile_image': widgets.TextInput(attrs={'class': 'form-control'})
         }
+
+class ContactInfoForm(ModelForm):
+    class Meta:
+        model = ContactInfo
+        exclude = ['user']
+        fields = {'fullname', 'email', 'phone', 'address', 'city', 'zip', 'country'}
+
+class PaymentInfoForm(ModelForm):
+    class Meta:
+        model = PaymentInfo
+        exclude = ['user']
+        fields = {'nameoncard', 'creditcardnumber', 'expirationdate', 'cvv'}
 
 class CustomUserCreationForm(forms.Form):
     username = forms.CharField(label='Enter Username', min_length=4, max_length=150)

@@ -1,8 +1,8 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
-from CaptainConsole.models import Products, ProductImages, Reviews, Profile, PreviouslyViewed, SearchHistory
-from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, AddImageForm, ProfileForm, ReviewCreateForm, CustomUserCreationForm, PreviouslyViewedForm, SearchHistoryForm
+from CaptainConsole.models import Products, ProductImages, Reviews, Profile, PreviouslyViewed, SearchHistory, ContactInfo, PaymentInfo
+from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, AddImageForm, ProfileForm, ReviewCreateForm, CustomUserCreationForm, PreviouslyViewedForm, SearchHistoryForm, ContactInfoForm, PaymentInfoForm
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
@@ -231,13 +231,33 @@ def cart_info(request):
     return render(request, 'CaptainConsole/cart-detail.html')
 
 def contact_info(request):
-    return render(request, 'CaptainConsole/contact_info.html')
+    contactinfo = ContactInfo.objects.filter(user=request.user).first()
+    if request.method == 'POST':
+        form = ContactInfoForm(instance=contactinfo, data=request.POST)
+        if form.is_valid():
+            contactinfo = form.save(commit=False)
+            contactinfo.user = request.user
+            contactinfo.save()
+            return redirect('shipping_and_payment')
+    return render(request, 'CaptainConsole/contact_info.html', {'form': ContactInfoForm(instance=contactinfo)})
 
 def shipping_and_payment(request):
-    return render(request, 'CaptainConsole/shipping_and_payment.html')
+    paymentinfo = PaymentInfo.objects.filter(user=request.user).first()
+    if request.method == 'POST':
+        form = PaymentInfoForm(instance=paymentinfo, data=request.POST)
+        if form.is_valid():
+            paymentinfo = form.save(commit=False)
+            paymentinfo.user = request.user
+            paymentinfo.save()
+            return redirect('order_review')
+    return render(request, 'CaptainConsole/shipping_and_payment.html', {'form': PaymentInfoForm(instance=paymentinfo)})
 
 def order_review(request):
-    return render(request, 'CaptainConsole/order_review.html')
+    contactinfo = ContactInfo.objects.filter(user=request.user).first()
+    paymentinfo = PaymentInfo.objects.filter(user=request.user).first()
+    return render(request, 'CaptainConsole/order_review.html', {
+        'payment': PaymentInfoForm(instance=paymentinfo),
+        'contact': ContactInfoForm(instance=contactinfo)})
 
 @login_required
 def delete_search_history(request):

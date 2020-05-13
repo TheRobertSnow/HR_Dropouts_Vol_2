@@ -18,6 +18,11 @@
                 <li><a href="{% url 'shipping_and_payment' %}">Previous Step:<br>Shipping and Payment</a></li>
                 <li>Shipping: </li>
                 <li>Total: </li>
+                {% for key,value in request.session.cart.items %}
+                    <tr class="cartRow">
+                        <p style="clear:both; margin-top: 8px; margin-left: -60px" >{{ value.price }}.kr<p/>
+                    </tr>
+                {% endfor %}
                 <li><a href="{% url 'order_review' %}">Next Step:<br>Place Order</a></li>
             </ul>
         </nav>

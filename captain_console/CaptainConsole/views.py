@@ -227,9 +227,11 @@ def cart_clear(request):
 def cart_detail(request):
     return render(request, 'CaptainConsole/cart-detail.html')
 
+@login_required
 def cart_info(request):
     return render(request, 'CaptainConsole/cart-detail.html')
 
+@login_required
 def contact_info(request):
     contactinfo = ContactInfo.objects.filter(user=request.user).first()
     if request.method == 'POST':
@@ -241,6 +243,7 @@ def contact_info(request):
             return redirect('shipping_and_payment')
     return render(request, 'CaptainConsole/contact_info.html', {'form': ContactInfoForm(instance=contactinfo)})
 
+@login_required
 def shipping_and_payment(request):
     paymentinfo = PaymentInfo.objects.filter(user=request.user).first()
     if request.method == 'POST':
@@ -252,6 +255,7 @@ def shipping_and_payment(request):
             return redirect('order_review')
     return render(request, 'CaptainConsole/shipping_and_payment.html', {'form': PaymentInfoForm(instance=paymentinfo)})
 
+@login_required
 def order_review(request):
     contactinfo = ContactInfo.objects.filter(user=request.user).first()
     paymentinfo = PaymentInfo.objects.filter(user=request.user).first()
@@ -259,6 +263,7 @@ def order_review(request):
         'payment': PaymentInfoForm(instance=paymentinfo),
         'contact': ContactInfoForm(instance=contactinfo)})
 
+@login_required
 def save_order(request):
     contactinfo = ContactInfo.objects.filter(user=request.user).first()
     paymentinfo = PaymentInfo.objects.filter(user=request.user).first()

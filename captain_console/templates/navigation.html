@@ -1,3 +1,4 @@
+{% load static %}
 <nav class="navbar navbar-expand-lg" id="navBar">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -5,9 +6,11 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'home' %}">Home</a>
+            <img class="nav-logo" src="{% static 'images/logo.PNG' %}"/>
+            <li class="nav-link">
+                <a class="nav-link homebtn" href="{% url 'home' %}">Home</a>
             </li>
+
             {% if user.is_authenticated %}
                 {% else %}
                 <li class="nav-item">
@@ -34,7 +37,7 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                        <a class="nav-link" href="{% url 'profile' %}">Edit User</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'search_history' %}">Search History</a>
@@ -44,10 +47,10 @@
                     </li>
                     {% if user.is_staff %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'delete_search_history' %}">Delete Search History</a>
+                        <a class="nav-link" href="{% url 'delete_search_history' %}">Delete All Search History</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'delete_previously_viewed' %}">Delete Previously Viewed</a>
+                        <a class="nav-link" href="{% url 'delete_previously_viewed' %}">Delete All Previously Viewed</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'create_product' %}">Add Product</a>

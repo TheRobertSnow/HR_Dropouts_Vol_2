@@ -86,12 +86,29 @@ a:hover {
 #navBar {
     height: 60px;
     border-bottom: 2px solid #BFBFBF;
+    background-color: lightblue;
+    animation-name: example;
+    animation-duration: 4s;
+    animation-iteration-count: 10;
+
 }
+
+@keyframes example {
+    0%   {background-color: lightgrey;}
+    25%  {background-color: lightblue;}
+    50%  {background-color: #7da6c8;}
+    75%  {background-color: lightblue}
+    100% {background-color: lightgrey;}
+}
+
 #navBar ul > li + li {
     border-left: 2px solid #BFBFBF;
 }
 .nav-link:hover {
     color: red;
+}
+.nav-link .homebtn {
+    font-size: 18pt;
 }
 .cart-container {
     padding-left: 15px;
@@ -126,6 +143,12 @@ a:hover {
     background-image: url('../images/genericUser.jpg');
     background-repeat: no-repeat;
     background-size: 100% 100%;
+}
+.nav-logo{
+    height: 50px;
+    width: auto;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 /*--------------------------------------------------------------------------------------------------------------------*/
 /* Search Form */
@@ -421,4 +444,10 @@ a:hover {
 .aside-img{
     width: 40%;
     height: auto;
+}
+/*--------------------------------------------------------------------------------------------------------------------*/
+/* create product  */
+/*--------------------------------------------------------------------------------------------------------------------*/
+input.btn.btn-primary.pull-right{
+    position: center;
 }

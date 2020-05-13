@@ -21,7 +21,7 @@ $(document).ready(function () {
                                         <img src="${d.mainImageLink}" alt="">
                                     </div>
                                     <h4 class="product-name">${d.name}</h4>
-                                    <p class="product-price">${d.price} kr.</p>
+                                    <p class="product-price">$ ${d.price}</p>
                                 </a>
                             </div>`
                 });

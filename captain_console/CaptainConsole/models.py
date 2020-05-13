@@ -8,6 +8,7 @@ class Products(models.Model):
     description = models.CharField(max_length=999)
     manufacturer = models.CharField(max_length=255)
     category = models.CharField(max_length=255, null=True)
+    type = models.CharField(max_length=255, null=True)
     mainImageLink = models.CharField(max_length=255)
     def __str__(self):
         return self.name

@@ -262,8 +262,6 @@ def order_review(request):
 def save_order(request):
     contactinfo = ContactInfo.objects.filter(user=request.user).first()
     paymentinfo = PaymentInfo.objects.filter(user=request.user).first()
-    # 'fullname', 'email', 'phone', 'address', 'city', 'zip', 'country'
-    # 'nameoncard', 'creditcardnumber', 'expirationdate', 'cvv', 'additionalinfo', 'price', 'orderitems'
     form = OrderForm()
     order = form.save(commit=False)
     order.user = request.user
@@ -278,11 +276,10 @@ def save_order(request):
     order.creditcardnumber = paymentinfo.creditcardnumber
     order.expirationdate = paymentinfo.expirationdate
     order.cvv = paymentinfo.cvv
-    order.additionalinfo = "paymentinfo.additionalinfo"
     order.price = 34
     order.orderitems = "paymentinfo.orderitems"
     order.save()
-    return redirect('home')
+    return redirect('cart_clear')
 
 @login_required
 def delete_search_history(request):

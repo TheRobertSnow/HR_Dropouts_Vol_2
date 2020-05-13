@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django_countries.fields import CountryField
 
 # Create your models here.
 class Products(models.Model):
@@ -51,7 +52,7 @@ class Orders(models.Model):
     address = models.CharField(max_length=255)
     zipcode = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
-    country = models.CharField(max_length=255)
+    country = CountryField(blank_label='(select country)')
 
 class SearchHistory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'CaptainConsole.apps.CaptainconsoleConfig',
     'cart',
+    'django_countries',
 ]
 
 MIDDLEWARE = [

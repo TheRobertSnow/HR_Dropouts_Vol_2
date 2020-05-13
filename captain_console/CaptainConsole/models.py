@@ -5,7 +5,7 @@ from django_countries.fields import CountryField
 # Create your models here.
 class Products(models.Model):
     name = models.CharField(max_length=255)
-    price = models.FloatField()
+    price = models.IntegerField()
     description = models.CharField(max_length=999)
     manufacturer = models.CharField(max_length=255)
     category = models.CharField(max_length=255, null=True)
@@ -46,8 +46,8 @@ class PaymentInfo(models.Model):
 class Orders(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length=255)
-    price = models.FloatField()
-    amount = models.FloatField()
+    price = models.IntegerField()
+    amount = models.IntegerField()
     additionalInfo = models.CharField(max_length=999, blank= True)
     address = models.CharField(max_length=255)
     zipcode = models.CharField(max_length=255)

@@ -1,15 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
     <table class="searchHistory">
-        <tr>
-            <th>Search Query</th>
-            <th>DateTime</th>
-        </tr>
-        {% for search in searches %}
-        <tr>
-            <td>{{ search.searchQuery }}</td>
-            <td>{{ search.datetime }}</td>
-        </tr>
-        {% endfor %}
+        {% if searches|length != 0  %}
+            <tr>
+                <th>Search Query</th>
+                <th>DateTime</th>
+            </tr>
+            {% for search in searches %}
+            <tr>
+                <td>{{ search.searchQuery }}</td>
+                <td>{{ search.datetime }}</td>
+            </tr>
+            {% endfor %}
+        {% elif searches|length == 0 %}
+            <h3>You have no search history</h3>
+        {% endif %}
     </table>
 {% endblock %}

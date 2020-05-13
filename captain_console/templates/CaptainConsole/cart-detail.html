@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
     {% load cart_tag %}
-    <div class="cart-page">
-        <nav class="navbar navbar-expand-lg" id="stepMenu">
-            <ul class="navbar-nav mr-auto">
-                <li><a href="{% url 'cart_info' %}">1. Cart</a></li>
-                <li>2. Contact Information</li>
-                <li>3. Shipping and Payment</li>
-                <li>4. Order Review</li>
-            </ul>
-        </nav>
-        <div class="cart-table-container">
-            {% if request.session.cart|length != 0 %}
+    {% if request.session.cart|length != 0 %}
+        <div class="cart-page">
+            <nav class="navbar navbar-expand-lg" id="stepMenu">
+                <ul class="navbar-nav mr-auto">
+                    <li><a href="{% url 'cart_info' %}">1. Cart</a></li>
+                    <li>2. Contact Information</li>
+                    <li>3. Shipping and Payment</li>
+                    <li>4. Order Review</li>
+                </ul>
+            </nav>
+            <div class="cart-table-container">
                 <table class="cartTable">
                     <tr class="cartRow">
                         <th></th>
@@ -34,17 +34,17 @@
                         </tr>
                     {% endfor %}
                 </table>
-            {% elif request.session.cart|length == 0 %}
-                <p>Cart is currently empty</p>
-            {% endif %}
+            </div>
+            <nav class="navbar navbar-expand-lg" id="stepMenu">
+                <ul class="navbar-nav mr-auto">
+                    <li><a href="{% url 'cart_clear' %}"><button type="button">Clear Cart</button></a></li>
+                    <li>Shipping: </li>
+                    <li>Total: </li>
+                    <li><a href="{% url 'contact_info' %}"><button type="button">Next Step:<br/>Contact Info</button></a></li>
+                </ul>
+            </nav>
         </div>
-        <nav class="navbar navbar-expand-lg" id="stepMenu">
-            <ul class="navbar-nav mr-auto">
-                <li><a href="{% url 'cart_clear' %}"><button type="button">Clear Cart</button></a></li>
-                <li>Shipping: </li>
-                <li>Total: </li>
-                <li><a href="{% url 'contact_info' %}"><button type="button">Next Step:<br/>Contact Info</button></a></li>
-            </ul>
-        </nav>
-    </div>
+    {% elif request.session.cart|length == 0 %}
+        <h3>Cart is currently empty</h3>
+    {% endif %}
 {% endblock %}

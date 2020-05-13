@@ -282,7 +282,7 @@ def save_order(request):
     order.expirationdate = paymentinfo.expirationdate
     order.cvv = paymentinfo.cvv
     order.price = 34
-    order.orderitems = "paymentinfo.orderitems"
+    order.orderitems = "jhsdjghs"
     order.save()
     return redirect('cart_clear')
 

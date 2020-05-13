@@ -57,6 +57,7 @@ a:hover {
     border: 1px solid #BFBFBF;
     border-radius: 5px;
     padding: 5px;
+    background-color: #dfdfdf;
 }
 .homePage .product-mainImage {
     margin: 0;
@@ -151,6 +152,12 @@ a:hover {
 /*--------------------------------------------------------------------------------------------------------------------*/
 /* Search Form */
 /*--------------------------------------------------------------------------------------------------------------------*/
+
+
+#search-box{
+    margin-bottom: 10px;
+}
+
 .searchForm {
     width: 100%;
     overflow: auto;
@@ -165,6 +172,7 @@ a:hover {
     background-color: white;
 }
 .searchButton {
+    margin-top: -5px;
     float: right;
     border-radius: 5px;
     border: 2px solid White;
@@ -435,7 +443,7 @@ a:hover {
     color: #064579;
 }
 .aside-container{
-
+    background-color: #EBEBEB;
 }
 .aside-img{
     width: 40%;

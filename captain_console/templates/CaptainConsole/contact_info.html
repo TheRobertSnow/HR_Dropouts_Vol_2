@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load countries %}
+{% get_countries as countries %}
+{% block content %}
+    <div class="cart-page">
+        <nav class="navbar navbar-expand-lg" id="stepMenu">
+            <ul class="navbar-nav mr-auto">
+                <li><a href="{% url 'cart_info' %}">1. Cart</a></li>
+                <li><a href="{% url 'contact_info' %}">2. Contact Information</a></li>
+                <li>3. Shipping and Payment</li>
+                <li>4. Order Review</li>
+            </ul>
+        </nav>
+        <div class="infoFormContainer">
+            <form class="infoForm" action="{% url 'contact_info' %}" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-100">
+                        <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+                        {{ form.fullname }}
+                    </div>
+                    <div class="col-50">
+                        <label for="email"><i class="fa fa-envelope"></i> Email</label>
+                        {{ form.email }}
+                    </div>
+                    <div class="col-50">
+                        <label for="phone"><i class="fa fa-phone"></i> Phone</label>
+                        {{ form.phone }}
+                    </div>
+                    <div class="col-50">
+                        <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+                        {{ form.address }}
+                    </div>
+                    <div class="col-50">
+                        <label for="city"><i class="fa fa-institution"></i> City</label>
+                        {{ form.city }}
+                    </div>
+                    <div class="col-50">
+                        <label for="zip"> Zip</label>
+                        {{ form.zip }}
+                    </div>
+                    <div class="col-50">
+                        <label for="country"> Country</label>
+                        {{ form.country }}
+                    </div>
+                </div>
+                <nav class="navbar navbar-expand-lg" id="stepMenu">
+                    <ul class="navbar-nav mr-auto">
+                        <li><a href="{% url 'cart_info' %}"><button type="button">Previous Step:<br/>Cart</button></a></li>
+                        <li>Shipping: </li>
+                        <li>Total: </li>
+                        <li><button type="submit">Next Step:<br/>Shipping and Payment</button></li>
+                    </ul>
+                </nav>
+            </form>
+        </div>
+    </div>
+{% endblock %}

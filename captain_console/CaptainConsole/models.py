@@ -1,53 +1,70 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django_countries.fields import CountryField
 
 # Create your models here.
-class Users(models.Model):
-    password = models.CharField(max_length=255)
-    avatar = models.CharField(max_length=999)
-    nickname = models.CharField(max_length=255)
-    email = models.CharField(max_length=255)
-    admin = models.BooleanField()
-
 class Products(models.Model):
     name = models.CharField(max_length=255)
-    price = models.FloatField()
+    price = models.IntegerField()
     description = models.CharField(max_length=999)
     manufacturer = models.CharField(max_length=255)
-    mainImage = models.CharField(max_length=255)
+    category = models.CharField(max_length=255, null=True)
+    type = models.CharField(max_length=255, null=True)
+    mainImageLink = models.CharField(max_length=255)
     def __str__(self):
         return self.name
 
 class ProductImages(models.Model):
-    imageFileName = models.CharField(max_length=255)
+    imageLink = models.CharField(max_length=255)
     product = models.ForeignKey(Products, on_delete=models.CASCADE, blank=True, null=True)
 
 class Reviews(models.Model):
-    user = models.ForeignKey(Users, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     product = models.ForeignKey(Products, on_delete=models.CASCADE, blank=True, null=True)
     rating = models.IntegerField()
     reviewTitle = models.CharField(max_length=255)
     reviewText = models.CharField(max_length=999)
-    datetime = models.DateTimeField(max_length=255)
+    datetime = models.DateTimeField()
 
-class ShoppingCart(models.Model):
-    user = models.ForeignKey(Users, on_delete=models.CASCADE, blank=True, null=True)
-    productIDs = models.CharField(max_length=999)
-    productAmount = models.CharField(max_length=999)
+class ContactInfo(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    fullname = models.CharField(max_length=50)
+    email = models.EmailField(max_length=50)
+    phone = models.IntegerField()
+    address = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    zip = models.CharField(max_length=6)
+    country = CountryField(blank_label='(select country)')
+
+class PaymentInfo(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    nameoncard = models.CharField(max_length=50)
+    creditcardnumber = models.CharField(max_length=16)
+    expirationdate = models.CharField(max_length=50)
+    cvv = models.IntegerField()
 
 class Orders(models.Model):
-    user = models.ForeignKey(Users, on_delete=models.CASCADE, blank=True, null=True)
-    shoppingCart = models.ForeignKey(ShoppingCart, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length=255)
-    price = models.FloatField()
-    amount = models.FloatField()
+    price = models.IntegerField()
+    amount = models.IntegerField()
     additionalInfo = models.CharField(max_length=999, blank= True)
     address = models.CharField(max_length=255)
     zipcode = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
-    country = models.CharField(max_length=255)
+    country = models.CharField(max_length=50)
 
 class SearchHistory(models.Model):
-    user = models.ForeignKey(Users, on_delete=models.CASCADE, blank=True, null=True)
-    keywordIDs = models.CharField(max_length=999)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     searchQuery = models.CharField(max_length=255)
-    datetime = models.DateTimeField(max_length=255)
+    datetime = models.DateTimeField()
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    nickname = models.CharField(max_length=50)
+    profile_image = models.CharField(max_length=9999)
+
+class PreviouslyViewed(models.Model):
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    datetime = models.DateTimeField()

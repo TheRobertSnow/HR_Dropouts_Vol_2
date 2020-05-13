@@ -1,32 +1,65 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="productPage">
-        <img class="product-mainImage" src="../../static/images/{{ product.mainImage }}" alt="">
-        {% for image in images %}
-            {% if product.id == image.product_id %}
-                <img class="product-images" src="../../static/images/{{ image.imageFileName }}" alt="">
-            {% endif %}
-        {% endfor %}
-        <h4 class="product-name">{{ product.name}}</h4>
-        <p class="product-price">{{ product.price }} kr.</p>
-        <p class="product-description">{{ product.description }}</p>
-        <h4>Reviews</h4>
-        {% for review in reviews %}
-            {% if product.id == review.product_id %}
-                <div class="product-review">
-                    <p class="product-review-rating">Rating: {{ review.rating}}/5 Stars</p>
-                    <p class="product-review-title">Title: {{ review.reviewTitle}}</p>
-                    <p class="product-review-text">Text: {{ review.reviewText}}</p>
-                    {% for user in users %}
-                        {% if user.id == review.user_id %}
-                            <p class="product-review-user">Posted by: {{ user.nickname }} at {{ review.datetime }}</p>
+        <div class="product-container">
+            <div class="productImageBox">
+                <img class="product-mainImage" src="{{ product.mainImageLink }}" alt="">
+                {% for image in images %}
+                    {% if product.id == image.product_id %}
+                        <img class="product-images" src="{{ image.imageLink }}" alt="">
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="productInfo">
+                <h4 class="product-name">{{ product.name}}</h4>
+                <p class="product-description">{{ product.description }}</p>
+            </div>
+            <div class="buyProduct">
+                <p class="product-price">$ {{ product.price }}</p>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'cart_add' product.id %}"><p class="add-to-cart">ADD TO CART</p></a>
+                {% else %}
+                    <a href="{% url 'login' %}"><p class="add-to-cart">ADD TO CART</p></a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="review-container">
+            <h5>Product reviews</h5>
+            {% for review in reviews %}
+                {% if product.id == review.product_id %}
+                    <div class="product-review">
+                        {% if review.rating >= 0 and review.rating <= 5 %}
+                            {% for i in '12345'|make_list %}
+                                {% if forloop.counter <= review.rating %}
+                                    <img class="stars" src="../../static/images/yellowStar.png" alt="">
+                                {% elif forloop.counter > review.rating %}
+                                    <img class="stars" src="../../static/images/blackStar.png" alt="">
+                                {% endif %}
+                            {% endfor %}
                         {% endif %}
-                    {% endfor %}
-                </div>
-            {% endif %}
-        {% endfor %}
-        <a href="{% url 'delete_product' product.id %}" class="block btn btn-primary">Delete Product</a>
-        <a href="{% url 'update_product' product.id %}" class="block btn btn-primary">Update Product</a>
-        <a href="{% url 'add_image' product.id %}" class="block btn btn-primary">Add Image</a>
+                        <h6 class="product-review-title">{{ review.reviewTitle }}</h6>
+                        <p class="product-review-text">{{ review.reviewText }}</p>
+                        <p class="product-review-user">Posted
+                        {% for profile in profiles %}
+                            {% if profile.user_id == review.user_id %}
+                                by {{ profile.nickname }}
+                            {% endif %}
+                        {% endfor %}
+                        on {{ review.datetime }}</p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% if user.is_authenticated %}
+            <div class="admin-product-options">
+                {% if user.is_staff %}
+                <a href="{% url 'delete_product' product.id %}" class="block btn btn-primary">Delete Product</a>
+                <a href="{% url 'update_product' product.id %}" class="block btn btn-primary">Update Product</a>
+                <a href="{% url 'add_image' product.id %}" class="block btn btn-primary">Add Image</a>
+                {% endif %}
+                <a href="{% url 'review_product' product.id %}" class="block btn btn-primary">Review Product</a>
+            </div>
+        {% endif %}
+
     </div>
 {% endblock %}

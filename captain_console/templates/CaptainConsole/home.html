@@ -1,14 +1,57 @@
 {% extends 'base.html' %}
 {% block content %}
+    <div>
+        <form method="get">
+            <input id="search-box" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <label>Order Options</label>
+            <select name="options", id="add_opt">
+                <option value="none">----------</option>
+                <option value="by_name">By Name</option>
+                <option value="by_price">By Price</option>
+            </select>
+            <label>Category Options</label>
+            <select name="options", id="add_type">
+                <option value="none">----------</option>
+                <option value="sega">Sega</option>
+                <option value="playstation">PlayStation</option>
+                <option value="nintendo">Nintendo</option>
+                <option value="xbox">Xbox</option>
+            </select>
+            <label>Type Options</label>
+            <select name="options", id="add_cat">
+                <option value="none">----------</option>
+                <option value="console">Consoles</option>
+                <option value="game">Games</option>
+                <option value="other">Other</option>
+            </select>
+            <button id="search-btn" class="searchButton" type="submit"></button>
+        </form>
+    </div>
     <div class="homePage">
         {% for product in products %}
         <div class="product-container">
             <a href="/products/{{ product.id }}">
-                <img class="product-mainImage" src="../../static/images/{{ product.mainImage }}" alt="">
+                <div class="product-mainImage">
+                    <img src="{{ product.mainImageLink }}" alt="">
+                </div>
                 <h4 class="product-name">{{ product.name }}</h4>
-                <p class="product-price">{{ product.price }} kr.</p>
+                <p class="product-price">$ {{ product.price }}</p>
             </a>
         </div>
         {% endfor %}
     </div>
+    {% if user.is_authenticated %}
+    <div class="history">
+        <h4>Recently Viewed</h4>
+        {% for prev in previous %}
+                <div class="aside-container">
+                    <a href="/products/{{ prev.product.id }}">
+                        <img class="aside-img" src="{{ prev.product.mainImageLink }}" alt="">
+                        <p class="aside-text">{{ prev.product }}</p>
+                        <p class="aside-text">{{ prev.datetime }}</p>
+                    </a>
+                </div>
+        {% endfor %}
+    </div>
+    {% endif %}
 {% endblock %}

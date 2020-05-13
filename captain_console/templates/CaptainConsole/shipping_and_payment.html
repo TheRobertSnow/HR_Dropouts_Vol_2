@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="cart-page">
+        <nav class="navbar navbar-expand-lg" id="stepMenu">
+            <ul class="navbar-nav mr-auto">
+                <li><a href="{% url 'cart_info' %}">1. Cart</a></li>
+                <li><a href="{% url 'contact_info' %}">2. Contact Information</a></li>
+                <li><a href="{% url 'shipping_and_payment' %}">3. Shipping and Payment</a></li>
+                <li>4. Order Review</li>
+            </ul>
+        </nav>
+        <div class="infoFormContainer">
+            <form class="infoForm" action="{% url 'shipping_and_payment' %}" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-100">
+                        <label for="fname">Accepted Cards</label>
+                        <div class="icon-container">
+                            <i class="fa fa-cc-visa" style="color:navy;"></i>
+                            <i class="fa fa-cc-amex" style="color:blue;"></i>
+                            <i class="fa fa-cc-mastercard" style="color:red;"></i>
+                            <i class="fa fa-cc-discover" style="color:orange;"></i>
+                        </div>
+                    </div>
+                    <div class="col-100">
+                        <label>Name on Card</label>
+                        {{ form.nameoncard }}
+                    </div>
+                    <div class="col-100">
+                        <label>Credit card number</label>
+                        {{ form.creditcardnumber }}
+                    </div>
+                    <div class="col-50">
+                        <label>Expiration Date</label>
+                        {{ form.expirationdate }}
+                    </div>
+                    <div class="col-50">
+                        <label>CVV</label>
+                        {{ form.cvv }}
+                    </div>
+                </div>
+                <nav class="navbar navbar-expand-lg" id="stepMenu">
+                    <ul class="navbar-nav mr-auto">
+                        <li><a href="{% url 'contact_info' %}"><button type="button">Previous Step:<br/>Contact Information</button></a></li>
+                        <li>Shipping: </li>
+                        <li>Total: </li>
+                        <li><button type="submit">Next Step:<br/>Order Review</button></li>
+                    </ul>
+                </nav>
+            </form>
+        </div>
+    </div>
+{% endblock %}

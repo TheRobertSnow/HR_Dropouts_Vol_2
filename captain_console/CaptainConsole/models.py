@@ -45,14 +45,20 @@ class PaymentInfo(models.Model):
 
 class Orders(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    name = models.CharField(max_length=255)
-    price = models.FloatField()
-    amount = models.FloatField()
-    additionalInfo = models.CharField(max_length=999, blank= True)
-    address = models.CharField(max_length=255)
-    zipcode = models.CharField(max_length=255)
-    city = models.CharField(max_length=255)
+    fullname = models.CharField(max_length=50)
+    email = models.EmailField(max_length=50)
+    phone = models.IntegerField()
+    address = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    zip = models.CharField(max_length=6)
     country = models.CharField(max_length=50)
+    nameoncard = models.CharField(max_length=50)
+    creditcardnumber = models.CharField(max_length=16)
+    expirationdate = models.CharField(max_length=50)
+    cvv = models.IntegerField()
+    price = models.FloatField(blank=True, null=True)
+    orderitems = models.CharField(max_length=9999, blank= True)
+    additionalinfo = models.CharField(max_length=999, blank= True)
 
 class SearchHistory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)

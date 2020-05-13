@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django.forms import widgets
 from django import forms
-from CaptainConsole.models import Products, Reviews, ProductImages, Profile, PreviouslyViewed, SearchHistory, ContactInfo, PaymentInfo
+from CaptainConsole.models import Products, Reviews, ProductImages, Profile, PreviouslyViewed, SearchHistory, ContactInfo, PaymentInfo, Orders
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django_countries.widgets import CountrySelectWidget
@@ -72,6 +72,12 @@ class PaymentInfoForm(ModelForm):
         model = PaymentInfo
         exclude = ['user']
         fields = {'nameoncard', 'creditcardnumber', 'expirationdate', 'cvv'}
+
+class OrderForm(ModelForm):
+    class Meta:
+        model = Orders
+        exclude = ['id', 'user']
+        fields = {'fullname', 'email', 'phone', 'address', 'city', 'zip', 'country', 'nameoncard', 'creditcardnumber', 'expirationdate', 'cvv', 'additionalinfo', 'price', 'orderitems'}
 
 class CustomUserCreationForm(forms.Form):
     username = forms.CharField(label='Enter Username', min_length=4, max_length=150)

@@ -93,6 +93,9 @@ a:hover {
 .nav-link:hover {
     color: red;
 }
+.nav-link .homebtn {
+    font-size: 18pt;
+}
 .cart-container {
     padding-left: 15px;
 }
@@ -126,6 +129,12 @@ a:hover {
     background-image: url('../images/genericUser.jpg');
     background-repeat: no-repeat;
     background-size: 100% 100%;
+}
+.nav-logo{
+    height: 50px;
+    width: auto;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 /*--------------------------------------------------------------------------------------------------------------------*/
 /* Search Form */

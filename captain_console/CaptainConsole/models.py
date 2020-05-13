@@ -34,7 +34,7 @@ class ContactInfo(models.Model):
     address = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     zip = models.CharField(max_length=6)
-    country = models.CharField(max_length=50)
+    country = CountryField(blank_label='(select country)')
 
 class PaymentInfo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
@@ -52,7 +52,7 @@ class Orders(models.Model):
     address = models.CharField(max_length=255)
     zipcode = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
-    country = CountryField(blank_label='(select country)')
+    country = models.CharField(max_length=50)
 
 class SearchHistory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)

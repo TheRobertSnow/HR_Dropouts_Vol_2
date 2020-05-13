@@ -323,7 +323,7 @@ a:hover {
     border-top: 2px solid #BFBFBF;
     border-bottom: 2px solid #BFBFBF;
 }
-.infoForm input {
+.infoForm input, .infoForm select {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;

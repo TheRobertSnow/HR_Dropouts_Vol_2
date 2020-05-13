@@ -1,8 +1,8 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
-from CaptainConsole.models import Products, ProductImages, Reviews, Profile, PreviouslyViewed, SearchHistory, ContactInfo, PaymentInfo
-from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, AddImageForm, ProfileForm, ReviewCreateForm, CustomUserCreationForm, PreviouslyViewedForm, SearchHistoryForm, ContactInfoForm, PaymentInfoForm
+from CaptainConsole.models import Products, ProductImages, Reviews, Profile, PreviouslyViewed, SearchHistory, ContactInfo, PaymentInfo, Orders
+from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, AddImageForm, ProfileForm, ReviewCreateForm, CustomUserCreationForm, PreviouslyViewedForm, SearchHistoryForm, ContactInfoForm, PaymentInfoForm, OrderForm
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone

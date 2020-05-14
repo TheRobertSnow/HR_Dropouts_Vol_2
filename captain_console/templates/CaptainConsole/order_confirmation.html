@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="cart-page">
+        <div class="order-info">
+            {% csrf_token %}
+            <h4>Order Items: {{ order.orderitems }}</h4>
+            <div class="order-contact-info">
+                <h4>Contact Information</h4>
+                <p>Name: {{ order.fullname }}</p>
+                <p>Email: {{ order.email }}</p>
+                <p>Phone: {{ order.phone }}</p>
+                <p>Address: {{ order.address }}</p>
+                <p>City: {{ order.city }}</p>
+                <p>Zip: {{ order.zip }}</p>
+                <p>Country: {{ order.country }}</p>
+            </div>
+            <div class="order-payment-info">
+                <h4>Payment Information</h4>
+                <p>Name On Card: {{ order.nameoncard }}</p>
+                <p>Credit Card Number: {{ order.creditcardnumber }}</p>
+            </div>
+            <div class="order-shipment-info">
+                <h4>Shipment Information</h4>
+                <p>Shipping Manager:</p>
+                <p>Shipping priority:</p>
+            </div>
+            <div class="order-shipment-info">
+                <h4>Order Number: {{ order.id }}</h4>
+                <h4>Order Price: {{ order.price }}</h4>
+            </div>
+        </div>
+    </div>
+{% endblock %}

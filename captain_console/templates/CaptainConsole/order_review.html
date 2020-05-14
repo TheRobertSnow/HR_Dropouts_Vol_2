@@ -30,18 +30,18 @@
             {% csrf_token %}
             <div class="order-contact-info">
                 <h4>Contact Information</h4>
-                <p>Name: {{ contact.fullname.value }}</p>
-                <p>Email: {{ contact.email.value }}</p>
-                <p>Phone: {{ contact.phone.value }}</p>
-                <p>Address: {{ contact.address.value }}</p>
-                <p>City: {{ contact.city.value }}</p>
-                <p>Zip: {{ contact.zip.value }}</p>
-                <p>Country: {{ contact.country.value }}</p>
+                <p>Name: {{ contact.fullname }}</p>
+                <p>Email: {{ contact.email }}</p>
+                <p>Phone: {{ contact.phone }}</p>
+                <p>Address: {{ contact.address }}</p>
+                <p>City: {{ contact.city }}</p>
+                <p>Zip: {{ contact.zip }}</p>
+                <p>Country: {{ contact.country }}</p>
             </div>
             <div class="order-payment-info">
                 <h4>Payment Information</h4>
-                <p>Name On Card: {{ payment.nameoncard.value }}</p>
-                <p>Credit Card Number: {{ payment.creditcardnumber.value }}</p>
+                <p>Name On Card: {{ payment.nameoncard }}</p>
+                <p>Credit Card Number: {{ payment.creditcardnumber }}</p>
             </div>
             <div class="order-shipment-info">
                 <h4>Shipment Information</h4>

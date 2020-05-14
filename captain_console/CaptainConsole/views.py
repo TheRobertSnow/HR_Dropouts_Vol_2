@@ -12,13 +12,14 @@ from cart.cart import Cart
 def home(request):
     if 'search_filter' in request.GET:
         search_filter = request.GET['search_filter']
-        if request.user.is_authenticated:
-            form = SearchHistoryForm()
-            search = form.save(commit=False)
-            search.user = request.user
-            search.searchQuery = search_filter
-            search.datetime = timezone.now()
-            search.save()
+        if search_filter != "":
+            if request.user.is_authenticated:
+                form = SearchHistoryForm()
+                search = form.save(commit=False)
+                search.user = request.user
+                search.searchQuery = search_filter
+                search.datetime = timezone.now()
+                search.save()
         ty = request.headers['addType']
         cat = request.headers['addCategory']
         order = request.headers['addFilter']
@@ -150,6 +151,7 @@ def add_image(request, id):
         'id': id
     })
 
+@login_required
 def profile(request):
     profile = Profile.objects.filter(user=request.user).first()
     if request.method == 'POST':
@@ -260,8 +262,8 @@ def order_review(request):
     contactinfo = ContactInfo.objects.filter(user=request.user).first()
     paymentinfo = PaymentInfo.objects.filter(user=request.user).first()
     return render(request, 'CaptainConsole/order_review.html', {
-        'payment': PaymentInfoForm(instance=paymentinfo),
-        'contact': ContactInfoForm(instance=contactinfo)})
+        'payment': paymentinfo,
+        'contact': contactinfo})
 
 @login_required
 def save_order(request):
@@ -284,7 +286,13 @@ def save_order(request):
     order.price = 34
     order.orderitems = "jhsdjghs"
     order.save()
-    return redirect('cart_clear')
+    cart = Cart(request)
+    cart.clear()
+    return redirect('order_confirmation')
+
+def order_confirmation(request):
+    orderinfo = Orders.objects.filter(user=request.user).first()
+    return render(request, 'CaptainConsole/order_confirmation.html', {'order': orderinfo})
 
 @login_required
 def delete_search_history(request):

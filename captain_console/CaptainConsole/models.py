@@ -16,18 +16,18 @@ class Products(models.Model):
 
 class ProductImages(models.Model):
     imageLink = models.CharField(max_length=255)
-    product = models.ForeignKey(Products, on_delete=models.CASCADE, blank=True, null=True)
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
 
 class Reviews(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    product = models.ForeignKey(Products, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
     rating = models.IntegerField()
     reviewTitle = models.CharField(max_length=255)
     reviewText = models.CharField(max_length=999)
     datetime = models.DateTimeField()
 
 class ContactInfo(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     fullname = models.CharField(max_length=50)
     email = models.EmailField(max_length=50)
     phone = models.IntegerField()
@@ -37,14 +37,14 @@ class ContactInfo(models.Model):
     country = CountryField(blank_label='(select country)')
 
 class PaymentInfo(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     nameoncard = models.CharField(max_length=50)
     creditcardnumber = models.CharField(max_length=16)
     expirationdate = models.CharField(max_length=50)
     cvv = models.IntegerField()
 
 class Orders(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     fullname = models.CharField(max_length=50)
     email = models.EmailField(max_length=50)
     phone = models.IntegerField()
@@ -56,12 +56,12 @@ class Orders(models.Model):
     creditcardnumber = models.CharField(max_length=16)
     expirationdate = models.CharField(max_length=50)
     cvv = models.IntegerField()
-    price = models.FloatField(blank=True, null=True)
-    orderitems = models.CharField(max_length=9999, blank= True)
+    price = models.FloatField()
+    orderitems = models.CharField(max_length=9999)
     additionalinfo = models.CharField(max_length=999, blank= True)
 
 class SearchHistory(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     searchQuery = models.CharField(max_length=255)
     datetime = models.DateTimeField()
 

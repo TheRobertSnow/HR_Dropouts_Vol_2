@@ -454,3 +454,10 @@ a:hover {
 input.btn.btn-primary.pull-right{
     position: center;
 }
+#footer {
+    background-color: lightblue;
+    animation-name: example;
+    animation-duration: 4s;
+    animation-iteration-count: 10;
+    border-top: 2px solid #BFBFBF;
+}

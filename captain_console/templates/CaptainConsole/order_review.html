@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
     <div class="cart-page">
         <nav class="navbar navbar-expand-lg" id="stepMenu">
@@ -9,7 +10,7 @@
                 <li><a href="{% url 'order_review' %}">4. Order Review</a></li>
             </ul>
         </nav>
-        <div class="order-info">
+        <div class="order-review">
             {% load cart_tag %}
             <table class="cartTable">
                 <tr class="cartRow">
@@ -23,39 +24,39 @@
                         <td><img src="{{ value.mainImageLink }}" alt=""/></td>
                         <td>{{value.name}}</td>
                         <td>{{value.quantity}}</td>
-                        <td>$ {{ value.price|multiply:value.quantity }}</td>
+                        <td name="prod-price">$ {{ value.price|multiply:value.quantity|floatformat:2 }}</td>
                     </tr>
                 {% endfor %}
             </table>
             {% csrf_token %}
             <div class="order-contact-info">
                 <h4>Contact Information</h4>
-                <p>Name: {{ contact.fullname.value }}</p>
-                <p>Email: {{ contact.email.value }}</p>
-                <p>Phone: {{ contact.phone.value }}</p>
-                <p>Address: {{ contact.address.value }}</p>
-                <p>City: {{ contact.city.value }}</p>
-                <p>Zip: {{ contact.zip.value }}</p>
-                <p>Country: {{ contact.country.value }}</p>
+                <p>Name: {{ contact.fullname }}</p>
+                <p>Email: {{ contact.email }}</p>
+                <p>Phone: {{ contact.phone }}</p>
+                <p>Address: {{ contact.address }}</p>
+                <p>City: {{ contact.city }}</p>
+                <p>Zip: {{ contact.zip }}</p>
+                <p>Country: {{ contact.country }}</p>
             </div>
             <div class="order-payment-info">
                 <h4>Payment Information</h4>
-                <p>Name On Card: {{ payment.nameoncard.value }}</p>
-                <p>Credit Card Number: {{ payment.creditcardnumber.value }}</p>
+                <p>Name On Card: {{ payment.nameoncard }}</p>
+                <p>Credit Card Number: {{ payment.creditcardnumber }}</p>
             </div>
             <div class="order-shipment-info">
                 <h4>Shipment Information</h4>
-                <p>Shipping Manager:</p>
-                <p>Shipping priority:</p>
+                <p>Shipping Company: {{ payment.shippingcompany }}</p>
+                <p>Shipping Option: {{ payment.shippingoption }}</p>
             </div>
         </div>
         <nav class="navbar navbar-expand-lg" id="stepMenu">
             <ul class="navbar-nav mr-auto">
                 <li><a href="{% url 'shipping_and_payment' %}"><button type="button">Previous Step:<br/>Shipping and Payment</button></a></li>
-                <li>Shipping: </li>
-                <li>Total: </li>
-                <li><button type="button">Next Step:<br>Place Order</button></li>
+                <li class="total"><h4>Total: $ {{ cart.get_total_price }}</h4></li>
+                <li><a href="{% url 'save_order' %}"><button type="button" >Next Step:<br>Place Order</button></a></li>
             </ul>
         </nav>
     </div>
+    <script src="{% static 'js/cart.js' %}"></script>
 {% endblock %}

@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django.forms import widgets
 from django import forms
-from CaptainConsole.models import Products, Reviews, ProductImages, Profile, PreviouslyViewed, SearchHistory, ContactInfo, PaymentInfo
+from CaptainConsole.models import Products, Reviews, ProductImages, Profile, PreviouslyViewed, SearchHistory, ContactInfo, PaymentAndShipping, Orders
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django_countries.widgets import CountrySelectWidget
@@ -15,6 +15,8 @@ class ProductUpdateForm(ModelForm):
             'price': widgets.NumberInput(attrs={'class': 'form-control'}),
             'description': widgets.TextInput(attrs={'class': 'form-control'}),
             'manufacturer': widgets.TextInput(attrs={'class': 'form-control'}),
+            'category': widgets.TextInput(attrs={'class': 'from-control'}),
+            'type': widgets.TextInput(attrs={'class': 'from-control'}),
             'mainImageLink': widgets.TextInput(attrs={'class': 'form-control'}),
         }
 
@@ -29,13 +31,14 @@ class ProductCreateForm(ModelForm):
             'description': widgets.TextInput(attrs={'class': 'form-control'}),
             'manufacturer': widgets.TextInput(attrs={'class': 'form-control'}),
             'category': widgets.TextInput(attrs={'class': 'from-control'}),
+            'type': widgets.TextInput(attrs={'class': 'from-control'}),
             'mainImageLink': widgets.TextInput(attrs={'class': 'form-control'}),
         }
 
 class AddImageForm(ModelForm):
     class Meta:
         model = ProductImages
-        exclude = ['id', 'product']
+        exclude = ['id']
         widgets = {
             'imageLink': widgets.TextInput(attrs={'class': 'form-control'}),
         }
@@ -57,6 +60,8 @@ class ProfileForm(ModelForm):
         exclude = [ 'id', 'user']
         widgets = {
             'nickname': widgets.TextInput(attrs={'class': 'form-control'}),
+            'firstname': widgets.TextInput(attrs={'class': 'form-control'}),
+            'lastname': widgets.TextInput(attrs={'class': 'form-control'}),
             'profile_image': widgets.TextInput(attrs={'class': 'form-control'})
         }
 
@@ -67,11 +72,25 @@ class ContactInfoForm(ModelForm):
         fields = {'fullname', 'email', 'phone', 'address', 'city', 'zip', 'country'}
         widgets = {'country': CountrySelectWidget()}
 
-class PaymentInfoForm(ModelForm):
+class PaymentAndShippingForm(ModelForm):
     class Meta:
-        model = PaymentInfo
+        model = PaymentAndShipping
         exclude = ['user']
-        fields = {'nameoncard', 'creditcardnumber', 'expirationdate', 'cvv'}
+        company_CHOICES = (('DHL', 'DHL'), ('FedEx', 'FedEx'), ('Pósturinn', 'Pósturinn'),)
+        option_CHOICES = (('Standard(1-2 weeks)', 'Standard(1-2 weeks)'), ('Express(3-6 buisness days)', 'Express(3-6 buisness days)'),
+                          ('Priority(1-3 buisness days)', 'Priority(1-3 buisness days)'),)
+        fields = {'nameoncard', 'creditcardnumber', 'expirationdate', 'cvv', 'shippingcompany', 'shippingoption'}
+        widgets = {
+            'shippingcompany': widgets.Select(attrs={'class': 'form-control'}, choices=company_CHOICES),
+            'shippingoption': widgets.Select(attrs={'class': 'form-control'}, choices=option_CHOICES),
+        }
+
+class OrderForm(ModelForm):
+    class Meta:
+        model = Orders
+        exclude = ['id', 'user']
+        fields = {'fullname', 'email', 'phone', 'address', 'city', 'zip', 'country', 'nameoncard', 'creditcardnumber',
+                  'expirationdate', 'cvv', 'additionalinfo', 'price', 'orderitems', 'shippingcompany', 'shippingoption'}
 
 class CustomUserCreationForm(forms.Form):
     username = forms.CharField(label='Enter Username', min_length=4, max_length=150)

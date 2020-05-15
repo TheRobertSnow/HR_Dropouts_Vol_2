@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
     {% load cart_tag %}
     {% if request.session.cart|length != 0 %}
@@ -30,7 +31,7 @@
                                 <a href="{% url 'item_increment' value.product_id %}">+</a>
                             </td>
                             <td><a href="{% url 'item_clear' value.product_id %}">X</a></td>
-                            <td>$ {{ value.price|multiply:value.quantity }}</td>
+                            <td name="prod-price">$ {{ value.price|multiply:value.quantity|floatformat:2 }}</td>
                         </tr>
                     {% endfor %}
                 </table>
@@ -38,8 +39,7 @@
             <nav class="navbar navbar-expand-lg" id="stepMenu">
                 <ul class="navbar-nav mr-auto">
                     <li><a href="{% url 'cart_clear' %}"><button type="button">Clear Cart</button></a></li>
-                    <li>Shipping: </li>
-                    <li>Total: </li>
+                    <li class="total"><h4>Total: $ {{ cart.get_total_price }}</h4></li>
                     <li><a href="{% url 'contact_info' %}"><button type="button">Next Step:<br/>Contact Info</button></a></li>
                 </ul>
             </nav>
@@ -47,4 +47,5 @@
     {% elif request.session.cart|length == 0 %}
         <h3>Cart is currently empty</h3>
     {% endif %}
+    <script src="{% static 'js/cart.js' %}"></script>
 {% endblock %}

@@ -22,7 +22,6 @@ class Cart(object):
         id = product.id
         newItem = True
         if str(product.id) not in self.cart.keys():
-
             self.cart[product.id] = {
                 'userid': self.request.user.id,
                 'product_id': id,
@@ -85,3 +84,6 @@ class Cart(object):
         # empty cart
         self.session[settings.CART_SESSION_ID] = {}
         self.session.modified = True
+
+    def get_total_price(self):
+        return sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values())

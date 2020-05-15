@@ -28,4 +28,7 @@ urlpatterns = [
     path('search_history', views.search_history, name='search_history'),
     path('search_history/delete', views.delete_search_history, name='delete_search_history'),
     path('previously_viewed/delete', views.delete_previously_viewed, name='delete_previously_viewed'),
+    path('order/pay', views.save_order, name='save_order'),
+    path('order/confirmation', views.order_confirmation, name='order_confirmation'),
+    path('order_history/', views.order_history, name='order_history'),
 ]

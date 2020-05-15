@@ -13,6 +13,14 @@
             <form class="infoForm" action="{% url 'shipping_and_payment' %}" method="post">
                 {% csrf_token %}
                 <div class="row">
+                    <div class="col-50">
+                        <label>Shipping Company</label>
+                        {{ form.shippingcompany }}
+                    </div>
+                    <div class="col-50">
+                        <label>Shipping Option</label>
+                        {{ form.shippingoption }}
+                    </div>
                     <div class="col-100">
                         <label for="fname">Accepted Cards</label>
                         <div class="icon-container">
@@ -42,8 +50,7 @@
                 <nav class="navbar navbar-expand-lg" id="stepMenu">
                     <ul class="navbar-nav mr-auto">
                         <li><a href="{% url 'contact_info' %}"><button type="button">Previous Step:<br/>Contact Information</button></a></li>
-                        <li>Shipping: </li>
-                        <li>Total: </li>
+                        <li class="total"><h4>Total: $ {{ total }}</h4></li>
                         <li><button type="submit">Next Step:<br/>Order Review</button></li>
                     </ul>
                 </nav>

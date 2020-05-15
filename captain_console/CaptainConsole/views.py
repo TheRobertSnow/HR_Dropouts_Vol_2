@@ -1,24 +1,26 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
-from CaptainConsole.models import Products, ProductImages, Reviews, Profile, PreviouslyViewed, SearchHistory, ContactInfo, PaymentInfo
-from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, AddImageForm, ProfileForm, ReviewCreateForm, CustomUserCreationForm, PreviouslyViewedForm, SearchHistoryForm, ContactInfoForm, PaymentInfoForm
+from CaptainConsole.models import Products, ProductImages, Reviews, Profile, PreviouslyViewed, SearchHistory, ContactInfo, PaymentAndShipping, Orders
+from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, AddImageForm, ProfileForm, ReviewCreateForm, CustomUserCreationForm, PreviouslyViewedForm, SearchHistoryForm, ContactInfoForm, PaymentAndShippingForm, OrderForm
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from cart.cart import Cart
+import ast
 
 # Create your views here.
 def home(request):
     if 'search_filter' in request.GET:
         search_filter = request.GET['search_filter']
-        if request.user.is_authenticated:
-            form = SearchHistoryForm()
-            search = form.save(commit=False)
-            search.user = request.user
-            search.searchQuery = search_filter
-            search.datetime = timezone.now()
-            search.save()
+        if search_filter != "":
+            if request.user.is_authenticated:
+                form = SearchHistoryForm()
+                search = form.save(commit=False)
+                search.user = request.user
+                search.searchQuery = search_filter
+                search.datetime = timezone.now()
+                search.save()
         ty = request.headers['addType']
         cat = request.headers['addCategory']
         order = request.headers['addFilter']
@@ -150,6 +152,7 @@ def add_image(request, id):
         'id': id
     })
 
+@login_required
 def profile(request):
     profile = Profile.objects.filter(user=request.user).first()
     if request.method == 'POST':
@@ -225,12 +228,18 @@ def cart_clear(request):
 
 @login_required
 def cart_detail(request):
-    return render(request, 'CaptainConsole/cart-detail.html')
+    cart = Cart(request)
+    return render(request, 'CaptainConsole/cart-detail.html', {'cart': cart})
 
+@login_required
 def cart_info(request):
-    return render(request, 'CaptainConsole/cart-detail.html')
+    cart = Cart(request)
+    return render(request, 'CaptainConsole/cart-detail.html', {'cart': cart})
 
+@login_required
 def contact_info(request):
+    cart = Cart(request)
+    total = cart.get_total_price()
     contactinfo = ContactInfo.objects.filter(user=request.user).first()
     if request.method == 'POST':
         form = ContactInfoForm(instance=contactinfo, data=request.POST)
@@ -239,25 +248,59 @@ def contact_info(request):
             contactinfo.user = request.user
             contactinfo.save()
             return redirect('shipping_and_payment')
-    return render(request, 'CaptainConsole/contact_info.html', {'form': ContactInfoForm(instance=contactinfo)})
+    return render(request, 'CaptainConsole/contact_info.html', {'form': ContactInfoForm(instance=contactinfo), 'total': total})
 
+@login_required
 def shipping_and_payment(request):
-    paymentinfo = PaymentInfo.objects.filter(user=request.user).first()
+    cart = Cart(request)
+    total = cart.get_total_price()
+    paymentinfo = PaymentAndShipping.objects.filter(user=request.user).first()
     if request.method == 'POST':
-        form = PaymentInfoForm(instance=paymentinfo, data=request.POST)
+        form = PaymentAndShippingForm(instance=paymentinfo, data=request.POST)
         if form.is_valid():
             paymentinfo = form.save(commit=False)
             paymentinfo.user = request.user
             paymentinfo.save()
             return redirect('order_review')
-    return render(request, 'CaptainConsole/shipping_and_payment.html', {'form': PaymentInfoForm(instance=paymentinfo)})
+    return render(request, 'CaptainConsole/shipping_and_payment.html', {'form': PaymentAndShippingForm(instance=paymentinfo), 'total': total})
 
+@login_required
 def order_review(request):
+    cart = Cart(request)
     contactinfo = ContactInfo.objects.filter(user=request.user).first()
-    paymentinfo = PaymentInfo.objects.filter(user=request.user).first()
+    paymentinfo = PaymentAndShipping.objects.filter(user=request.user).first()
     return render(request, 'CaptainConsole/order_review.html', {
-        'payment': PaymentInfoForm(instance=paymentinfo),
-        'contact': ContactInfoForm(instance=contactinfo)})
+        'cart': cart,
+        'payment': paymentinfo,
+        'contact': contactinfo})
+
+@login_required
+def save_order(request):
+    contactinfo = ContactInfo.objects.filter(user=request.user).first()
+    paymentinfo = PaymentAndShipping.objects.filter(user=request.user).first()
+    cart = Cart(request)
+    cartinfo = cart.cart
+    order = Orders(user=request.user, fullname=contactinfo.fullname, email=contactinfo.email, phone=contactinfo.phone,
+               address=contactinfo.address, city=contactinfo.city, zip=contactinfo.zip, country=contactinfo.country,
+               nameoncard=paymentinfo.nameoncard, creditcardnumber=paymentinfo.creditcardnumber,
+               expirationdate=paymentinfo.expirationdate, cvv=paymentinfo.cvv, price=cart.get_total_price(),
+               shippingcompany=paymentinfo.shippingcompany, shippingoption=paymentinfo.shippingoption, orderitems=cartinfo)
+    order.save()
+    cart.clear()
+    return redirect('order_confirmation')
+
+@login_required
+def order_confirmation(request):
+    orderinfo = Orders.objects.filter(user=request.user).last()
+    orderinfo.orderitems = ast.literal_eval(orderinfo.orderitems)
+    return render(request, 'CaptainConsole/order_confirmation.html', {'order': orderinfo})
+
+@login_required
+def order_history(request):
+    allorders = Orders.objects.filter(user=request.user)
+    for order in allorders:
+        order.orderitems = ast.literal_eval(order.orderitems)
+    return render(request, 'CaptainConsole/order_history.html', {'orders': allorders})
 
 @login_required
 def delete_search_history(request):

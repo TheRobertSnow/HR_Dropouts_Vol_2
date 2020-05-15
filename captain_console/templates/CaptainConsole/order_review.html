@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
     <div class="cart-page">
         <nav class="navbar navbar-expand-lg" id="stepMenu">
@@ -23,7 +24,7 @@
                         <td><img src="{{ value.mainImageLink }}" alt=""/></td>
                         <td>{{value.name}}</td>
                         <td>{{value.quantity}}</td>
-                        <td>$ {{ value.price|multiply:value.quantity|floatformat:2 }}</td>
+                        <td name="prod-price">$ {{ value.price|multiply:value.quantity|floatformat:2 }}</td>
                     </tr>
                 {% endfor %}
             </table>
@@ -58,4 +59,5 @@
             </ul>
         </nav>
     </div>
+    <script src="{% static 'js/cart.js' %}"></script>
 {% endblock %}

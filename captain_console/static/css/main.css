@@ -463,6 +463,23 @@ input {
     text-align: left;
     padding: 15px;
 }
+.order-history {
+    margin: auto;
+    width: 70%;
+}
+.order-history .order-number {
+    text-align: center;
+}
+.order-history .order-info {
+    border: 2px solid #656565;
+    padding: 20px;
+    margin: 20px;
+    width: 100%;
+}
+.order-history .order-cart {
+    padding: 10px;
+    border-top: 2px solid #656565;
+}
 .history {
     width: 10%;
     position: fixed;

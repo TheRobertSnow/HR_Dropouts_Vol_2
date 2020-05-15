@@ -50,8 +50,7 @@
                 <nav class="navbar navbar-expand-lg" id="stepMenu">
                     <ul class="navbar-nav mr-auto">
                         <li><a href="{% url 'contact_info' %}"><button type="button">Previous Step:<br/>Contact Information</button></a></li>
-                        <li>Shipping: </li>
-                        <li>Total: $ {{ total }}</li>
+                        <li class="total"><h4>Total: $ {{ total }}</h4></li>
                         <li><button type="submit">Next Step:<br/>Order Review</button></li>
                     </ul>
                 </nav>

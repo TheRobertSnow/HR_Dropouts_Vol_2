@@ -227,14 +227,18 @@ def cart_clear(request):
 
 @login_required
 def cart_detail(request):
-    return render(request, 'CaptainConsole/cart-detail.html')
+    cart = Cart(request)
+    return render(request, 'CaptainConsole/cart-detail.html', {'cart': cart})
 
 @login_required
 def cart_info(request):
-    return render(request, 'CaptainConsole/cart-detail.html')
+    cart = Cart(request)
+    return render(request, 'CaptainConsole/cart-detail.html', {'cart': cart})
 
 @login_required
 def contact_info(request):
+    cart = Cart(request)
+    total = cart.get_total_price()
     contactinfo = ContactInfo.objects.filter(user=request.user).first()
     if request.method == 'POST':
         form = ContactInfoForm(instance=contactinfo, data=request.POST)
@@ -243,10 +247,12 @@ def contact_info(request):
             contactinfo.user = request.user
             contactinfo.save()
             return redirect('shipping_and_payment')
-    return render(request, 'CaptainConsole/contact_info.html', {'form': ContactInfoForm(instance=contactinfo)})
+    return render(request, 'CaptainConsole/contact_info.html', {'form': ContactInfoForm(instance=contactinfo), 'total': total})
 
 @login_required
 def shipping_and_payment(request):
+    cart = Cart(request)
+    total = cart.get_total_price()
     paymentinfo = PaymentInfo.objects.filter(user=request.user).first()
     if request.method == 'POST':
         form = PaymentInfoForm(instance=paymentinfo, data=request.POST)
@@ -255,13 +261,15 @@ def shipping_and_payment(request):
             paymentinfo.user = request.user
             paymentinfo.save()
             return redirect('order_review')
-    return render(request, 'CaptainConsole/shipping_and_payment.html', {'form': PaymentInfoForm(instance=paymentinfo)})
+    return render(request, 'CaptainConsole/shipping_and_payment.html', {'form': PaymentInfoForm(instance=paymentinfo), 'total': total})
 
 @login_required
 def order_review(request):
+    cart = Cart(request)
     contactinfo = ContactInfo.objects.filter(user=request.user).first()
     paymentinfo = PaymentInfo.objects.filter(user=request.user).first()
     return render(request, 'CaptainConsole/order_review.html', {
+        'cart': cart,
         'payment': paymentinfo,
         'contact': contactinfo})
 
@@ -269,6 +277,7 @@ def order_review(request):
 def save_order(request):
     contactinfo = ContactInfo.objects.filter(user=request.user).first()
     paymentinfo = PaymentInfo.objects.filter(user=request.user).first()
+    cart = Cart(request)
     form = OrderForm()
     order = form.save(commit=False)
     order.user = request.user
@@ -283,15 +292,14 @@ def save_order(request):
     order.creditcardnumber = paymentinfo.creditcardnumber
     order.expirationdate = paymentinfo.expirationdate
     order.cvv = paymentinfo.cvv
-    order.price = 34
-    order.orderitems = "jhsdjghs"
+    order.price = cart.get_total_price()
+    order.orderitems = cart.cart
     order.save()
-    cart = Cart(request)
     cart.clear()
     return redirect('order_confirmation')
 
 def order_confirmation(request):
-    orderinfo = Orders.objects.filter(user=request.user).first()
+    orderinfo = Orders.objects.filter(user=request.user).last()
     return render(request, 'CaptainConsole/order_confirmation.html', {'order': orderinfo})
 
 @login_required

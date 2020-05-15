@@ -278,29 +278,25 @@ def save_order(request):
     contactinfo = ContactInfo.objects.filter(user=request.user).first()
     paymentinfo = PaymentInfo.objects.filter(user=request.user).first()
     cart = Cart(request)
-    form = OrderForm()
-    order = form.save(commit=False)
-    order.user = request.user
-    order.fullname = contactinfo.fullname
-    order.email = contactinfo.email
-    order.phone = contactinfo.phone
-    order.address = contactinfo.address
-    order.city = contactinfo.city
-    order.zip = contactinfo.zip
-    order.country = contactinfo.country
-    order.nameoncard = paymentinfo.nameoncard
-    order.creditcardnumber = paymentinfo.creditcardnumber
-    order.expirationdate = paymentinfo.expirationdate
-    order.cvv = paymentinfo.cvv
-    order.price = cart.get_total_price()
-    order.orderitems = cart.cart
+    cartString = cart.cart.values()
+    order = Orders(user=request.user, fullname=contactinfo.fullname, email=contactinfo.email, phone=contactinfo.phone,
+               address=contactinfo.address, city=contactinfo.city, zip=contactinfo.zip, country=contactinfo.country,
+               nameoncard=paymentinfo.nameoncard, creditcardnumber=paymentinfo.creditcardnumber,
+               expirationdate=paymentinfo.expirationdate, cvv=paymentinfo.cvv, price=cart.get_total_price(),
+               orderitems=cartString)
     order.save()
     cart.clear()
     return redirect('order_confirmation')
 
+@login_required
 def order_confirmation(request):
     orderinfo = Orders.objects.filter(user=request.user).last()
     return render(request, 'CaptainConsole/order_confirmation.html', {'order': orderinfo})
+
+@login_required
+def order_history(request):
+    allorders = Orders.objects.filter(user=request.user)
+    return render(request, 'CaptainConsole/order_history.html', {'orders': allorders})
 
 @login_required
 def delete_search_history(request):

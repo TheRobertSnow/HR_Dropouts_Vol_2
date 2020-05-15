@@ -278,7 +278,7 @@ def save_order(request):
     contactinfo = ContactInfo.objects.filter(user=request.user).first()
     paymentinfo = PaymentInfo.objects.filter(user=request.user).first()
     cart = Cart(request)
-    cartString = cart.cart.values()
+    cartString = cart.cart.items()
     order = Orders(user=request.user, fullname=contactinfo.fullname, email=contactinfo.email, phone=contactinfo.phone,
                address=contactinfo.address, city=contactinfo.city, zip=contactinfo.zip, country=contactinfo.country,
                nameoncard=paymentinfo.nameoncard, creditcardnumber=paymentinfo.creditcardnumber,

@@ -4,24 +4,6 @@
         {% csrf_token %}
         {% for order in orders %}
             <h4>Order Items: {{ order.orderitems }}</h4>
-            <div class="cart-table-container">
-                <table class="cartTable">
-                    <tr class="cartRow">
-                        <th></th>
-                        <th>Product</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                    </tr>
-                    {% for value in order.orderitems %}
-                        <tr class="cartRow">
-                            <td><img src="{{ value.mainImageLink }}" alt=""/></td>
-                            <td>{{value.name}}</td>
-                            <td>{{value.quantity}}</td>
-                            <td>{{value.price}}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
             <div class="order-contact-info">
                 <h4>Contact Information</h4>
                 <p>Name: {{ order.fullname }}</p>

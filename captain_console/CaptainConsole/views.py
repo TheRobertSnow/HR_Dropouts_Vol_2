@@ -7,6 +7,7 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from cart.cart import Cart
+import ast
 
 
 # Create your views here.
@@ -279,12 +280,12 @@ def save_order(request):
     contactinfo = ContactInfo.objects.filter(user=request.user).first()
     paymentinfo = PaymentInfo.objects.filter(user=request.user).first()
     cart = Cart(request)
-    cartString = cart.cart.items()
+    cartinfo = cart.cart
     order = Orders(user=request.user, fullname=contactinfo.fullname, email=contactinfo.email, phone=contactinfo.phone,
                address=contactinfo.address, city=contactinfo.city, zip=contactinfo.zip, country=contactinfo.country,
                nameoncard=paymentinfo.nameoncard, creditcardnumber=paymentinfo.creditcardnumber,
                expirationdate=paymentinfo.expirationdate, cvv=paymentinfo.cvv, price=cart.get_total_price(),
-               orderitems=cartString)
+               orderitems=cartinfo)
     order.save()
     cart.clear()
     return redirect('order_confirmation')
@@ -292,11 +293,14 @@ def save_order(request):
 @login_required
 def order_confirmation(request):
     orderinfo = Orders.objects.filter(user=request.user).last()
+    orderinfo.orderitems = ast.literal_eval(orderinfo.orderitems)
     return render(request, 'CaptainConsole/order_confirmation.html', {'order': orderinfo})
 
 @login_required
 def order_history(request):
     allorders = Orders.objects.filter(user=request.user)
+    for order in allorders:
+        order.orderitems = ast.literal_eval(order.orderitems)
     return render(request, 'CaptainConsole/order_history.html', {'orders': allorders})
 
 @login_required

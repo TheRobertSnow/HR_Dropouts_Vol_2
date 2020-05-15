@@ -1,33 +1,57 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="order-info">
-        {% csrf_token %}
-        {% for order in orders %}
-            <h4>Order Items: {{ order.orderitems }}</h4>
-            <div class="order-contact-info">
-                <h4>Contact Information</h4>
-                <p>Name: {{ order.fullname }}</p>
-                <p>Email: {{ order.email }}</p>
-                <p>Phone: {{ order.phone }}</p>
-                <p>Address: {{ order.address }}</p>
-                <p>City: {{ order.city }}</p>
-                <p>Zip: {{ order.zip }}</p>
-                <p>Country: {{ order.country }}</p>
-            </div>
-            <div class="order-payment-info">
-                <h4>Payment Information</h4>
-                <p>Name On Card: {{ order.nameoncard }}</p>
-                <p>Credit Card Number: {{ order.creditcardnumber }}</p>
-            </div>
-            <div class="order-shipment-info">
-                <h4>Shipment Information</h4>
-                <p>Shipping Manager:</p>
-                <p>Shipping priority:</p>
-            </div>
-            <div class="order-shipment-info">
-                <h4>Order Number: {{ order.id }}</h4>
-                <h4>Order Price: {{ order.price }}</h4>
-            </div>
-        {% endfor %}
+    <div class="order-history">
+        {% if orders|length != 0  %}
+            {% csrf_token %}
+            {% for order in orders %}
+                <div class="order-info">
+                    <h4 class="order-number">Order Number: {{ order.id }}</h4>
+                    <div class="order-cart">
+                        <h4>Order Items:</h4>
+                        <table class="cartTable">
+                            <tr class="cartRow">
+                                <th></th>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                            </tr>
+                            {% for key,value in order.orderitems.items %}
+                                <tr class="cartRow">
+                                    <td><img src="{{ value.mainImageLink }}" alt=""/></td>
+                                    <td>{{value.name}}</td>
+                                    <td>{{value.quantity}}</td>
+                                    <td>$ {{value.price}}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    <div class="order-contact-info">
+                        <h4>Contact Information</h4>
+                        <p>Name: {{ order.fullname }}</p>
+                        <p>Email: {{ order.email }}</p>
+                        <p>Phone: {{ order.phone }}</p>
+                        <p>Address: {{ order.address }}</p>
+                        <p>City: {{ order.city }}</p>
+                        <p>Zip: {{ order.zip }}</p>
+                        <p>Country: {{ order.country }}</p>
+                    </div>
+                    <div class="order-payment-info">
+                        <h4>Payment Information</h4>
+                        <p>Name On Card: {{ order.nameoncard }}</p>
+                        <p>Credit Card Number: {{ order.creditcardnumber }}</p>
+                    </div>
+                    <div class="order-shipment-info">
+                        <h4>Shipment Information</h4>
+                        <p>Shipping Manager:</p>
+                        <p>Shipping priority:</p>
+                    </div>
+                    <div class="order-shipment-info">
+                        <h4>Order Total: $ {{ order.price }}</h4>
+                    </div>
+                </div>
+            {% endfor %}
+        {% elif orders|length == 0 %}
+            <h3>You have no orders</h3>
+        {% endif %}
     </div>
 {% endblock %}

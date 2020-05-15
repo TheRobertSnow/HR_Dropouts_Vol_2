@@ -36,12 +36,14 @@ class ContactInfo(models.Model):
     zip = models.CharField(max_length=6)
     country = CountryField(blank_label='(select country)')
 
-class PaymentInfo(models.Model):
+class PaymentAndShipping(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     nameoncard = models.CharField(max_length=50)
     creditcardnumber = models.CharField(max_length=16)
     expirationdate = models.CharField(max_length=50)
     cvv = models.IntegerField()
+    shippingcompany = models.CharField(max_length=50)
+    shippingoption = models.CharField(max_length=50)
 
 class Orders(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -58,6 +60,8 @@ class Orders(models.Model):
     cvv = models.IntegerField()
     price = models.FloatField()
     orderitems = models.CharField(max_length=9999)
+    shippingcompany = models.CharField(max_length=50)
+    shippingoption = models.CharField(max_length=50)
     additionalinfo = models.CharField(max_length=999, blank= True)
 
 class SearchHistory(models.Model):

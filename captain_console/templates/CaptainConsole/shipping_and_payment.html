@@ -13,6 +13,14 @@
             <form class="infoForm" action="{% url 'shipping_and_payment' %}" method="post">
                 {% csrf_token %}
                 <div class="row">
+                    <div class="col-50">
+                        <label>Shipping Company</label>
+                        {{ form.shippingcompany }}
+                    </div>
+                    <div class="col-50">
+                        <label>Shipping Option</label>
+                        {{ form.shippingoption }}
+                    </div>
                     <div class="col-100">
                         <label for="fname">Accepted Cards</label>
                         <div class="icon-container">

@@ -1,8 +1,8 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
-from CaptainConsole.models import Products, ProductImages, Reviews, Profile, PreviouslyViewed, SearchHistory, ContactInfo, PaymentInfo, Orders
-from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, AddImageForm, ProfileForm, ReviewCreateForm, CustomUserCreationForm, PreviouslyViewedForm, SearchHistoryForm, ContactInfoForm, PaymentInfoForm, OrderForm
+from CaptainConsole.models import Products, ProductImages, Reviews, Profile, PreviouslyViewed, SearchHistory, ContactInfo, PaymentAndShipping, Orders
+from CaptainConsole.forms.cc_form import ProductCreateForm, ProductUpdateForm, AddImageForm, ProfileForm, ReviewCreateForm, CustomUserCreationForm, PreviouslyViewedForm, SearchHistoryForm, ContactInfoForm, PaymentAndShippingForm, OrderForm
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
@@ -255,21 +255,21 @@ def contact_info(request):
 def shipping_and_payment(request):
     cart = Cart(request)
     total = cart.get_total_price()
-    paymentinfo = PaymentInfo.objects.filter(user=request.user).first()
+    paymentinfo = PaymentAndShipping.objects.filter(user=request.user).first()
     if request.method == 'POST':
-        form = PaymentInfoForm(instance=paymentinfo, data=request.POST)
+        form = PaymentAndShippingForm(instance=paymentinfo, data=request.POST)
         if form.is_valid():
             paymentinfo = form.save(commit=False)
             paymentinfo.user = request.user
             paymentinfo.save()
             return redirect('order_review')
-    return render(request, 'CaptainConsole/shipping_and_payment.html', {'form': PaymentInfoForm(instance=paymentinfo), 'total': total})
+    return render(request, 'CaptainConsole/shipping_and_payment.html', {'form': PaymentAndShippingForm(instance=paymentinfo), 'total': total})
 
 @login_required
 def order_review(request):
     cart = Cart(request)
     contactinfo = ContactInfo.objects.filter(user=request.user).first()
-    paymentinfo = PaymentInfo.objects.filter(user=request.user).first()
+    paymentinfo = PaymentAndShipping.objects.filter(user=request.user).first()
     return render(request, 'CaptainConsole/order_review.html', {
         'cart': cart,
         'payment': paymentinfo,
@@ -278,14 +278,14 @@ def order_review(request):
 @login_required
 def save_order(request):
     contactinfo = ContactInfo.objects.filter(user=request.user).first()
-    paymentinfo = PaymentInfo.objects.filter(user=request.user).first()
+    paymentinfo = PaymentAndShipping.objects.filter(user=request.user).first()
     cart = Cart(request)
     cartinfo = cart.cart
     order = Orders(user=request.user, fullname=contactinfo.fullname, email=contactinfo.email, phone=contactinfo.phone,
                address=contactinfo.address, city=contactinfo.city, zip=contactinfo.zip, country=contactinfo.country,
                nameoncard=paymentinfo.nameoncard, creditcardnumber=paymentinfo.creditcardnumber,
                expirationdate=paymentinfo.expirationdate, cvv=paymentinfo.cvv, price=cart.get_total_price(),
-               orderitems=cartinfo)
+               shippingcompany=paymentinfo.shippingcompany, shippingoption=paymentinfo.shippingoption, orderitems=cartinfo)
     order.save()
     cart.clear()
     return redirect('order_confirmation')

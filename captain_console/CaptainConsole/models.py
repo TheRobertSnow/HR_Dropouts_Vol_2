@@ -68,6 +68,8 @@ class SearchHistory(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     nickname = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=50, null=True)
+    last_name = models.CharField(max_length=50, null=True)
     profile_image = models.CharField(max_length=9999)
 
 class PreviouslyViewed(models.Model):

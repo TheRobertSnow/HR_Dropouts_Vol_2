@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from cart.cart import Cart
 
+
 # Create your views here.
 def home(request):
     if 'search_filter' in request.GET:
